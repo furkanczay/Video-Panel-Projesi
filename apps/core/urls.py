@@ -15,6 +15,7 @@ urlpatterns = [
         ])),
         path('videos/', include([
             path('<int:pk>/', videos.video_detail, name='video_detail'),
+            path('comments/delete/<int:pk>', videos.video_comment_delete, name='video_comment_delete'),
         ])),
     ])),
 ]

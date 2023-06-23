@@ -51,5 +51,38 @@
             </div>
         </div>
     </div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col">
+                <h2>Yorumlar</h2>
+            </div>
+            <div class="col">
+                <h4 class="badge float-end bg-primary">{{ comments.count }} Toplam Yorum</h4>
+            </div>
+        </div>
+        {% for comment in comments %}
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex flex-row gap-4 align-items-center">
+                        <div>
+                            <img class="avatar avatar-xs avatar-rounded" src="{{ comment.author.avatar.url }}" alt="">
+                        </div>
+                        <div>
+                            {{ comment.author }}
+                        </div>
+                        {% if comment.author == request.user %}
+                            <div class="d-flex flex-row gap-2">
+                                <a href="#" class="btn btn-primary">Düzenle</a>
+                                <a href="{% url 'video_comment_delete' pk=comment.pk %}" class="btn btn-danger">Sil</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-body">
+                    {{ comment.comment }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

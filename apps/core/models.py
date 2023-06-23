@@ -53,7 +53,7 @@ class Users(AbstractBaseUser, PermissionsMixin, AbstractDatesModel):
         verbose_name_plural = 'Üyeler'
 
     def __str__(self):
-        return self.email
+        return self.get_full_name()
 
     def save(self, *args, **kwargs):
         if not self.username:
@@ -85,6 +85,9 @@ class IssueCategories(AbstractDatesModel):
         verbose_name = _('Sorun Kategorisi')
         verbose_name_plural = _('Sorun Kategorileri')
 
+    def __str__(self):
+        return self.name
+
 
 class Issues(AbstractDatesModel):
     subject = models.CharField(_('Konu'), max_length=255)
@@ -98,6 +101,9 @@ class Issues(AbstractDatesModel):
         verbose_name = _('Sorun')
         verbose_name_plural = _('Sorunlar')
 
+    def __str__(self):
+        return self.subject
+
 
 class Courses(AbstractDatesModel):
     name = models.CharField(_('İsim'), max_length=120)
@@ -106,6 +112,9 @@ class Courses(AbstractDatesModel):
         db_table = 'courses'
         verbose_name = _('Kurs')
         verbose_name_plural = _('Kurslar')
+
+    def __str__(self):
+        return self.name
 
 
 class Classroom(AbstractDatesModel):
@@ -119,6 +128,9 @@ class Classroom(AbstractDatesModel):
         verbose_name = _('Sınıf')
         verbose_name_plural = _('Sınıflar')
 
+    def __str__(self):
+        return self.name
+
 
 class Videos(AbstractDatesModel):
     title = models.CharField(_('Başlık'), max_length=120)
@@ -131,3 +143,20 @@ class Videos(AbstractDatesModel):
         db_table = 'videos'
         verbose_name = _('Video')
         verbose_name_plural = _('Videolar')
+
+    def __str__(self):
+        return self.title
+
+
+class VideoComments(AbstractDatesModel):
+    author = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='video_comments', verbose_name=_('Yazan'))
+    video = models.ForeignKey(Videos, on_delete=models.CASCADE, related_name='comments', verbose_name=_('Video'))
+    comment = models.TextField(_('Yorum'))
+
+    class Meta:
+        db_table = 'video_comments'
+        verbose_name = _('Video Yorumu')
+        verbose_name_plural = _('Video Yorumları')
+
+    def __str__(self):
+        return self.author.get_full_name()

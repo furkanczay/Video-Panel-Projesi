@@ -28,6 +28,8 @@
     <link href="{% static 'user/css/horizontal-menu/horizontal-menu.css' %}" rel="stylesheet">
     <link href="{% static 'user/css/custom.css' %}" rel="stylesheet">
     <link href="{% static 'user/css/darktheme.css' %}" rel="stylesheet">
+
+    <link href="{% static 'base/css/toastr.min.css' %}" rel="stylesheet">
     {% block css_files %}{% endblock %}
 
     <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/neptune.png" />
@@ -54,6 +56,15 @@
                 <script src="{% static 'user/plugins/pace/pace.min.js' %}"></script>
                 <script src="{% static 'user/js/main.min.js' %}"></script>
                 <script src="{% static 'user/js/custom.js' %}"></script>
+                <script src="{% static 'base/js/toastr.min.js' %}"></script>
+                <script>
+                    {% if messages %}
+                        {% for message in messages %}
+                            toastr.options.progressBar = true;
+                            toastr.{{ message.tags }}('{{ message }}');
+                        {% endfor %}
+                    {% endif %}
+                </script>
                 {% block js_files %}{% endblock %}
             </div>
     </div>
