@@ -1,0 +1,52 @@
+{% extends 'user/alt_base.html' %}
+{% load static %}
+{% block title %}
+    Sorunlar
+{% endblock %}
+{% block css_files %}
+    <link href="{% static 'user/plugins/datatables/datatables.min.css' %}" rel="stylesheet">
+{% endblock %}
+{% block js_files %}
+    <script src="{% static 'user/plugins/datatables/datatables.min.js' %}"></script>
+    <script src="{% static 'user/js/pages/datatables.js' %}"></script>
+{% endblock %}o %}
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <table id="datatable1" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Konu</th>
+                        <th>Kategori</th>
+                        <th>Oluşturulma Tarihi</th>
+                        <th>Çözüldü mü?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for issue in issues %}
+                        <tr>
+                            <td>{{ issue.subject }}</td>
+                            <td>{{ issue.category.name }}</td>
+                            <td>{{ issue.created_on }}</td>
+                            <td>
+                                {% if issue.is_solved %}
+                                    <span class="badge bg-success">Çözüldü</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Çözülmedi</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Konu</th>
+                        <th>Kategori</th>
+                        <th>Oluşturulma Tarihi</th>
+                        <th>Çözüldü mü?</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+{% endblock %}

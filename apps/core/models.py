@@ -73,3 +73,17 @@ class Users(AbstractBaseUser, PermissionsMixin, AbstractDatesModel):
     def get_short_name(self):
         """Return the short name for the user."""
         return self.first_name
+
+
+# ISSUES MODELS
+class IssueCategories(AbstractDatesModel):
+    name = models.CharField(_('Kategori Adı'), max_length=120)
+
+
+class Issues(AbstractDatesModel):
+    subject = models.CharField(_('Konu'), max_length=255)
+    category = models.ForeignKey(IssueCategories, on_delete=models.CASCADE, related_name='issues', verbose_name=_('Kategori'))
+    content = models.TextField(_('İçerik'))
+    is_solved = models.BooleanField(_('Çözüldü mü?'), default=False)
+
+
