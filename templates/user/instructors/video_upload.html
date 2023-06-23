@@ -1,0 +1,23 @@
+{% extends 'user/alt_base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Video Yükle
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <div class="page-description">
+                <h1>Video Yükle</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-outline-primary">Videoyu Yükle</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

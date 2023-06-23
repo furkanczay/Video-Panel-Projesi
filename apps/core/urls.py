@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import users, main, instructors
+from .views import users, main, instructors, videos
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -11,6 +11,10 @@ urlpatterns = [
         path('issues/', main.issues, name='issues'),
         path('instructor-panel/', include([
             path('', instructors.instructor_panel, name='instructor_panel'),
+            path('video-upload/', instructors.video_upload, name='video_upload'),
+        ])),
+        path('videos/', include([
+            path('<int:pk>/', videos.video_detail, name='video_detail'),
         ])),
     ])),
 ]

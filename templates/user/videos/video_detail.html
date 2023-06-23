@@ -1,0 +1,54 @@
+{% extends 'user/alt_base.html' %}
+{% block title %}
+    {{ video.title }}
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-header text-center">{{ video.title }}</div>
+            <div class="card-body align-items-center">
+                <video style="max-width: 100%" class="object-fit-fill border border-primary rounded" controls>
+                  <source src="{{ video.video_file.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="card-footer">
+                {{ video.description }}
+                <div class="divider"></div>
+                {% if video.link %}
+                    <div class="card">
+                        <div class="card-body">
+                              <h5 class="card-title">Kaynak Link</h5>
+                              <p class="card-text">Eğitmen bu videonun içeriğine bir bağlantı ekledi, erişmek için butona basınız</p>
+                              <a href="{{ video.link }}" target="_blank" class="btn btn-primary">Linke Git</a>
+                        </div>
+                    </div>
+                {% endif %}
+                {{ video.created_on }}
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Diğer Videolar</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-description">Buradan bu sınıfa ait diğer videolara erişebilirsiniz.</p>
+                <div class="list-group overflow-auto">
+                    {% for classroom_video in all_videos %}
+                        <a href="{% url 'video_detail' pk=classroom_video.pk %}" class="list-group-item list-group-item-action {% if classroom_video.pk == video.pk %}active{% endif %}">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{ classroom_video.title }}</h5>
+                                <small>{{ classroom_video.created_on|timesince }} önce</small>
+                            </div>
+                            <small>{{ classroom_video.created_on|date }}</small>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -79,6 +79,7 @@ class Users(AbstractBaseUser, PermissionsMixin, AbstractDatesModel):
 # ISSUES MODELS
 class IssueCategories(AbstractDatesModel):
     name = models.CharField(_('Kategori Adı'), max_length=120)
+
     class Meta:
         db_table = 'issue_categories'
         verbose_name = _('Sorun Kategorisi')
@@ -87,7 +88,8 @@ class IssueCategories(AbstractDatesModel):
 
 class Issues(AbstractDatesModel):
     subject = models.CharField(_('Konu'), max_length=255)
-    category = models.ForeignKey(IssueCategories, on_delete=models.CASCADE, related_name='issues', verbose_name=_('Kategori'))
+    category = models.ForeignKey(IssueCategories, on_delete=models.CASCADE, related_name='issues',
+                                 verbose_name=_('Kategori'))
     content = models.TextField(_('İçerik'))
     is_solved = models.BooleanField(_('Çözüldü mü?'), default=False)
 
@@ -97,16 +99,35 @@ class Issues(AbstractDatesModel):
         verbose_name_plural = _('Sorunlar')
 
 
+class Courses(AbstractDatesModel):
+    name = models.CharField(_('İsim'), max_length=120)
+
+    class Meta:
+        db_table = 'courses'
+        verbose_name = _('Kurs')
+        verbose_name_plural = _('Kurslar')
+
+
+class Classroom(AbstractDatesModel):
+    name = models.CharField(_('İsim'), max_length=120)
+    course = models.ForeignKey(Courses, on_delete=models.CASCADE, related_name='classrooms', verbose_name=_('Kurs'))
+    instructor = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='instructor_classrooms', default=1,
+                                   verbose_name=_('Eğitmen'))
+
+    class Meta:
+        db_table = 'classrooms'
+        verbose_name = _('Sınıf')
+        verbose_name_plural = _('Sınıflar')
+
+
 class Videos(AbstractDatesModel):
     title = models.CharField(_('Başlık'), max_length=120)
     description = models.TextField(_('Açıklama'))
     video_file = models.FileField(_('Video'), upload_to='videos/', validators=[validate_file_extension])
     link = models.URLField(_('Link'), null=True, blank=True)
-    instructor = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='videos', default=1)
+    classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE, related_name='videos', default=1)
 
     class Meta:
         db_table = 'videos'
         verbose_name = _('Video')
         verbose_name_plural = _('Videolar')
-
-
