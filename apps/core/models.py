@@ -6,6 +6,7 @@ from django_countries.fields import CountryField
 from django.utils.translation import gettext_lazy as _
 
 
+# AUTHENTICATE MODELS
 class UsersManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -34,12 +35,12 @@ class Users(AbstractBaseUser, PermissionsMixin, AbstractDatesModel):
     email = models.EmailField(_('Eposta Adresi'), max_length=150, unique=True)
     first_name = models.CharField(_('Adı'), max_length=120)
     last_name = models.CharField(_('Soyadı'), max_length=120)
-    gender = models.CharField(max_length=6, choices=GENDERS, null=True, blank=True)
+    gender = models.CharField(_('Cinsiyet'), max_length=6, choices=GENDERS, null=True, blank=True)
     avatar = models.ImageField(_('Profil Resmi'), upload_to='avatars/', null=True, blank=True)
     bio = models.TextField(_('Biyografi'), null=True, blank=True)
     birth_date = models.DateField(_('Doğum Tarihi'), null=True)
     country = CountryField(_('Ülke'), null=True)
-    is_active = models.BooleanField(_('Aktif mi?'), default=False)
+    is_active = models.BooleanField(_('Aktif mi?'), default=True)
     is_staff = models.BooleanField(_('Personel mi?'), default=False)
     objects = UsersManager()
     USERNAME_FIELD = 'email'
@@ -72,4 +73,3 @@ class Users(AbstractBaseUser, PermissionsMixin, AbstractDatesModel):
     def get_short_name(self):
         """Return the short name for the user."""
         return self.first_name
-

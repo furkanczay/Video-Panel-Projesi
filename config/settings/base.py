@@ -25,6 +25,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # APPS
     'apps.core',
+    # ADMIN
+    'apps.manager',
 ]
 
 # AUTH USER MODEL OPTION
@@ -33,6 +35,7 @@ AUTH_USER_MODEL = 'core.Users'
 # AUTHENTICATION BACKENDS OPTION
 AUTHENTICATION_BACKENDS = [
     'apps.core.backends.UsersModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 # LOGIN/LOGOUT URLS OPTION
@@ -119,6 +122,8 @@ STATIC_URL = 'assets/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'assets/static'
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets/static_files/')
 
 # MEDIA FILES OPTION
 MEDIA_ROOT = os.path.join(BASE_DIR, 'assets/media/')

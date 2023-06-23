@@ -20,7 +20,7 @@ def login_page(request):
             return redirect('homepage')
         else:
             messages.error(request, _('Böyle bir kullanıcı bulunamadı'))
-    return render(request, 'users/login.html')
+    return render(request, 'user/users/login.html')
 
 
 @login_required()

@@ -6,4 +6,4 @@ from django.utils.translation import gettext_lazy as _
 
 @login_required()
 def homepage(request):
-    return render(request, 'main/homepage.html', {})
+    return render(request, 'user/main/homepage.html', {})
