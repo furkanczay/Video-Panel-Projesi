@@ -27,14 +27,21 @@ INSTALLED_APPS = [
     'apps.core',
     # ADMIN
     'apps.manager',
+    # THIRD-PARTY
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
+
+# CRISPY FORMS OPTION
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # AUTH USER MODEL OPTION
 AUTH_USER_MODEL = 'core.Users'
 
 # AUTHENTICATION BACKENDS OPTION
 AUTHENTICATION_BACKENDS = [
-    'apps.core.backends.UsersModelBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 

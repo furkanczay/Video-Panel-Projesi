@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from apps.core.backends import UsersModelBackend
 from django.utils.translation import gettext_lazy as _
 
 
@@ -13,8 +12,7 @@ def login_page(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-        backend = UsersModelBackend()
-        user = backend.authenticate(request, email=email, password=password)
+        user = authenticate(request, username=email, password=password)
         if user is not None:
             login(request, user)
             return redirect('homepage')
