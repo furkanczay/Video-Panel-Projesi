@@ -31,10 +31,37 @@
         </div>
         <div class="row">
             <div class="col">
-                <h2>Yorumlar</h2>
+                <div class="d-flex align-items-center gap-2">
+                    <h2>Yorumlar</h2> <h4 class="badge bg-primary">{{ comments.count }} Toplam Yorum</h4>
+                </div>
             </div>
             <div class="col">
-                <h4 class="badge float-end bg-primary">{{ comments.count }} Toplam Yorum</h4>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#createCommentModal" class="btn btn-primary float-end">Yorum Yap</a>
+                <!-- Modal -->
+                <div class="modal fade" id="createCommentModal" tabindex="-1" role="dialog" aria-labelledby="editCommentModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="editCommentModalLabel">Yorumu Güncelle</h5>
+                        <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">X</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form method="post" action="{% url 'video_comment_create' %}">
+                          {% csrf_token %}
+                          <!-- Yorum güncelleme için gerekli form alanları -->
+                          <div class="form-group">
+                            <input type="hidden" name="video_id" value="{{ video.id }}">
+                            <label for="commentContent">Yorum İçeriği</label>
+                            <textarea id="commentContent" class="form-control" name="comment"></textarea>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Yorum Yap</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
         </div>
         {% for comment in comments %}
@@ -56,8 +83,8 @@
                                     <div class="modal-content">
                                       <div class="modal-header">
                                         <h5 class="modal-title" id="editCommentModalLabel">Yorumu Güncelle</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
+                                        <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">X</span>
                                         </button>
                                       </div>
                                       <div class="modal-body">
@@ -66,7 +93,7 @@
                                           <!-- Yorum güncelleme için gerekli form alanları -->
                                           <div class="form-group">
                                             <label for="commentContent">Yorum İçeriği</label>
-                                            <textarea class="form-control" id="commentContent" name="content">{{ comment.content }}</textarea>
+                                            <textarea class="form-control" id="commentContent" name="comment">{{ comment.comment }}</textarea>
                                           </div>
                                           <button type="submit" class="btn btn-primary">Güncelle</button>
                                         </form>

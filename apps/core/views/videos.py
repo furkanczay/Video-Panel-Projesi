@@ -14,11 +14,30 @@ def video_detail(request, pk):
     })
 
 
+def video_comment_create(request):
+    if request.method == 'POST':
+        # Formdan gelen verileri al
+        comment = request.POST.get('comment')
+        video_id = request.POST.get('video_id')
+
+        # Gerekli doğrulamaları yap
+
+        # Videoyu bul
+        video = Videos.objects.get(id=video_id)
+
+        # Yorumu oluştur ve videoya bağla
+        comment = VideoComments.objects.create(author=request.user, comment=comment, video=video)
+
+        # Diğer işlemler (örneğin, yönlendirme veya mesaj gösterme)
+        messages.success(request, 'Yorum başarıyla eklendi')
+        return redirect('video_detail', pk=video_id)
+
+
 def video_comment_update(request, pk):
     video_comment = get_object_or_404(VideoComments, pk=pk)
     if request.method == 'POST':
         if video_comment.author == request.user:
-            comment = request.POST.get('content')
+            comment = request.POST.get('comment')
             video_comment.comment = comment
             video_comment.save()
             messages.success(request, 'Yorum başarıyla güncellendi')
