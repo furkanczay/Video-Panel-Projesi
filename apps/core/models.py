@@ -1,0 +1,75 @@
+from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.utils.text import slugify
+from .abstracts import AbstractDatesModel
+from django_countries.fields import CountryField
+from django.utils.translation import gettext_lazy as _
+
+
+class UsersManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError("Email adresi gereklidir.")
+
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self.create_user(email, password, **extra_fields)
+
+
+class Users(AbstractBaseUser, PermissionsMixin, AbstractDatesModel):
+    GENDERS = [
+        ('Erkek', 'Erkek'),
+        ('Kadın', 'Kadın'),
+        ('Diğer', 'Diğer'),
+    ]
+    student_number = models.CharField(_('Öğrenci Numarası'), max_length=20, unique=True, null=True, blank=True)
+    username = models.CharField(_('Kullanıcı Adı'), max_length=100, unique=True, null=True, blank=True)
+    email = models.EmailField(_('Eposta Adresi'), max_length=150, unique=True)
+    first_name = models.CharField(_('Adı'), max_length=120)
+    last_name = models.CharField(_('Soyadı'), max_length=120)
+    gender = models.CharField(max_length=6, choices=GENDERS, null=True, blank=True)
+    avatar = models.ImageField(_('Profil Resmi'), upload_to='avatars/', null=True, blank=True)
+    bio = models.TextField(_('Biyografi'), null=True, blank=True)
+    birth_date = models.DateField(_('Doğum Tarihi'), null=True)
+    country = CountryField(_('Ülke'), null=True)
+    is_active = models.BooleanField(_('Aktif mi?'), default=False)
+    is_staff = models.BooleanField(_('Personel mi?'), default=False)
+    objects = UsersManager()
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
+    class Meta:
+        db_table = 'users'
+        verbose_name = 'Üye'
+        verbose_name_plural = 'Üyeler'
+
+    def __str__(self):
+        return self.email
+
+    def save(self, *args, **kwargs):
+        if not self.username:
+            self.username = slugify(self.email.split('@')[0])
+
+        # Avatar atanmamışsa varsayılan avatarı atama
+        if not self.avatar:
+            self.avatar = 'default-avatar.jpg'
+        super(Users, self).save(*args, **kwargs)
+
+    def get_full_name(self):
+        """
+        Return the first_name plus the last_name, with a space in between.
+        """
+        full_name = "%s %s" % (self.first_name, self.last_name)
+        return full_name.strip()
+
+    def get_short_name(self):
+        """Return the short name for the user."""
+        return self.first_name
+
