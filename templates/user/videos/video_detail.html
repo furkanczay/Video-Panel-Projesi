@@ -25,7 +25,8 @@
                         </div>
                     </div>
                 {% endif %}
-                {{ video.created_on }}
+                {{ video.created_on|date }}
+                <span class="float-end">{{ video.classroom.name }}</span>
             </div>
         </div>
     </div>
