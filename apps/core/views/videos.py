@@ -14,8 +14,15 @@ def video_detail(request, pk):
     })
 
 
-def video_comment_update(request):
-    pass
+def video_comment_update(request, pk):
+    video_comment = get_object_or_404(VideoComments, pk=pk)
+    if request.method == 'POST':
+        if video_comment.author == request.user:
+            comment = request.POST.get('content')
+            video_comment.comment = comment
+            video_comment.save()
+            messages.success(request, 'Yorum başarıyla güncellendi')
+            return redirect('video_detail', pk=video_comment.video.pk)
 
 
 def video_comment_delete(request, pk):

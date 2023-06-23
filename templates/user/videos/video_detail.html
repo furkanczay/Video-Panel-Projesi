@@ -29,29 +29,6 @@
                 <span class="float-end">{{ video.classroom.name }}</span>
             </div>
         </div>
-    </div>
-    <div class="col-4">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title">Diğer Videolar</h5>
-            </div>
-            <div class="card-body">
-                <p class="card-description">Buradan bu sınıfa ait diğer videolara erişebilirsiniz.</p>
-                <div class="list-group overflow-auto">
-                    {% for classroom_video in all_videos %}
-                        <a href="{% url 'video_detail' pk=classroom_video.pk %}" class="list-group-item list-group-item-action {% if classroom_video.pk == video.pk %}active{% endif %}">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">{{ classroom_video.title }}</h5>
-                                <small>{{ classroom_video.created_on|timesince }} önce</small>
-                            </div>
-                            <small>{{ classroom_video.created_on|date }}</small>
-                        </a>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-12">
         <div class="row">
             <div class="col">
                 <h2>Yorumlar</h2>
@@ -72,7 +49,31 @@
                         </div>
                         {% if comment.author == request.user %}
                             <div class="d-flex flex-row gap-2">
-                                <a href="#" class="btn btn-primary">Düzenle</a>
+                                <button class="btn btn-primary edit-comment-btn" data-bs-toggle="modal" data-bs-target="#editCommentModal-{{ comment.pk }}">Düzenle</button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="editCommentModal-{{ comment.pk }}" tabindex="-1" role="dialog" aria-labelledby="editCommentModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="editCommentModalLabel">Yorumu Güncelle</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <form id="editCommentForm" method="post" action="{% url 'video_comment_update' pk=comment.pk %}">
+                                          {% csrf_token %}
+                                          <!-- Yorum güncelleme için gerekli form alanları -->
+                                          <div class="form-group">
+                                            <label for="commentContent">Yorum İçeriği</label>
+                                            <textarea class="form-control" id="commentContent" name="content">{{ comment.content }}</textarea>
+                                          </div>
+                                          <button type="submit" class="btn btn-primary">Güncelle</button>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                                 <a href="{% url 'video_comment_delete' pk=comment.pk %}" class="btn btn-danger">Sil</a>
                             </div>
                         {% endif %}
@@ -82,7 +83,30 @@
                     {{ comment.comment }}
                 </div>
             </div>
+        {% empty %}
+            <div class="alert alert-warning">Henüz Hiç Yorum Yapılmamış!</div>
         {% endfor %}
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Diğer Videolar</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-description">Buradan bu sınıfa ait diğer videolara erişebilirsiniz.</p>
+                <div class="list-group">
+                    {% for classroom_video in all_videos %}
+                        <a href="{% url 'video_detail' pk=classroom_video.pk %}" class="list-group-item list-group-item-action {% if classroom_video.pk == video.pk %}active{% endif %}">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{ classroom_video.title }}</h5>
+                                <small>{{ classroom_video.created_on|timesince }} önce</small>
+                            </div>
+                            <small>{{ classroom_video.created_on|date }}</small>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

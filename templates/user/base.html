@@ -57,6 +57,7 @@
                 <script src="{% static 'user/js/main.min.js' %}"></script>
                 <script src="{% static 'user/js/custom.js' %}"></script>
                 <script src="{% static 'base/js/toastr.min.js' %}"></script>
+                {% block js_files %}{% endblock %}
                 <script>
                     {% if messages %}
                         {% for message in messages %}
@@ -65,7 +66,6 @@
                         {% endfor %}
                     {% endif %}
                 </script>
-                {% block js_files %}{% endblock %}
             </div>
     </div>
 </body>
