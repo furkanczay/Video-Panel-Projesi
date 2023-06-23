@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Users, Issues, IssueCategories
+from .models import Users, Issues, IssueCategories, Videos
 
 
 @admin.register(Users)
@@ -24,3 +24,4 @@ class UsersAdmin(UserAdmin):
 
 admin.site.register(IssueCategories)
 admin.site.register(Issues)
+admin.site.register(Videos)

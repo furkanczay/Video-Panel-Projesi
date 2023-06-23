@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from django.utils.text import slugify
 from .abstracts import AbstractDatesModel
 from django_countries.fields import CountryField
+from .validators.videos import validate_file_extension
 from django.utils.translation import gettext_lazy as _
 
 
@@ -78,6 +79,10 @@ class Users(AbstractBaseUser, PermissionsMixin, AbstractDatesModel):
 # ISSUES MODELS
 class IssueCategories(AbstractDatesModel):
     name = models.CharField(_('Kategori Adı'), max_length=120)
+    class Meta:
+        db_table = 'issue_categories'
+        verbose_name = _('Sorun Kategorisi')
+        verbose_name_plural = _('Sorun Kategorileri')
 
 
 class Issues(AbstractDatesModel):
@@ -85,5 +90,23 @@ class Issues(AbstractDatesModel):
     category = models.ForeignKey(IssueCategories, on_delete=models.CASCADE, related_name='issues', verbose_name=_('Kategori'))
     content = models.TextField(_('İçerik'))
     is_solved = models.BooleanField(_('Çözüldü mü?'), default=False)
+
+    class Meta:
+        db_table = 'issues'
+        verbose_name = _('Sorun')
+        verbose_name_plural = _('Sorunlar')
+
+
+class Videos(AbstractDatesModel):
+    title = models.CharField(_('Başlık'), max_length=120)
+    description = models.TextField(_('Açıklama'))
+    video_file = models.FileField(_('Video'), upload_to='videos/', validators=[validate_file_extension])
+    link = models.URLField(_('Link'), null=True, blank=True)
+    instructor = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='videos', default=1)
+
+    class Meta:
+        db_table = 'videos'
+        verbose_name = _('Video')
+        verbose_name_plural = _('Videolar')
 
 
