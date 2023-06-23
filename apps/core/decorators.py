@@ -7,7 +7,7 @@ def group_required(group_name):
             if request.user.groups.filter(name=group_name).exists():
                 return view_func(request, *args, **kwargs)
             else:
-                return redirect('login')
+                return redirect('homepage')
 
         return wrapper
 

@@ -1,0 +1,45 @@
+{% extends 'user/alt_base.html' %}
+{% block title %}
+    Eğitmen Paneli
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <div class="page-description">
+                <h1>Eğitmen Paneli</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-outline-primary float-end">Video Yükle</button>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-6">
+            <div class="card widget widget-list">
+                <div class="card-header">
+                    <h5 class="card-title">Son Videolar<span class="badge badge-success badge-style-light">{{ request.user.videos.count }} Toplam Video</span></h5>
+                </div>
+                <div class="card-body">
+                    <span class="text-muted m-b-xs d-block">Tüm videolar özelliği yakında eklenecek!</span>
+                    <ul class="widget-list-content list-unstyled">
+                        {% for video in videos %}
+                            <li class="widget-list-item widget-list-item-blue">
+                                <span class="widget-list-item-icon"><i class="material-icons-outlined">play_circle</i></span>
+                                <span class="widget-list-item-description">
+                                    <a href="#" class="widget-list-item-description-title">
+                                        {{ video.title }}
+                                    </a>
+                                    <span class="widget-list-item-description-subtitle">
+                                        {{ video.created_on }}
+                                    </span>
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
