@@ -3,18 +3,19 @@ from django.contrib.auth.decorators import login_required
 from apps.core.decorators import group_required
 from apps.core.forms.instructor_forms import VideoUpload
 from django.contrib import messages
+from apps.core.models import Classroom
 
 
 @login_required()
 @group_required('Eğitmen')
 def instructor_panel(request):
-    videos = request.user.videos.all().order_by('-id')
+    classrooms = request.user.instructor_classrooms.all()
+    videos = request.user.instructor_videos.all().order_by('-id')[:5]
     return render(request, 'user/instructors/instructor_panel.html', {
         'videos': videos
     })
 
 
-@login_required()
 @group_required('Eğitmen')
 def video_upload(request):
     if request.method == 'POST':

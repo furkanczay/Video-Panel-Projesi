@@ -46,10 +46,12 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # LOGIN/LOGOUT URLS OPTION
-LOGIN_REDIRECT_URL = 'homepage'
 LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'homepage'
 LOGOUT_REDIRECT_URL = 'login'
 PASSWORD_RESET_TIMEOUT = 259200
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
 
 # MIDDLEWARES OPTION
 MIDDLEWARE = [
@@ -60,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'apps.core.middlewares.LoginRequiredMiddleware',
 ]
 
 # ROOT URLCONFIGURATION OPTION

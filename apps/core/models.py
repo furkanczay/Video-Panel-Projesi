@@ -138,6 +138,7 @@ class Videos(AbstractDatesModel):
     video_file = models.FileField(_('Video'), upload_to='videos/', validators=[validate_file_extension])
     link = models.URLField(_('Link'), null=True, blank=True)
     classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE, related_name='videos', default=1)
+    instructor = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='instructor_videos', default=1)
 
     class Meta:
         db_table = 'videos'
