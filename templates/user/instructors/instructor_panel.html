@@ -30,7 +30,7 @@
                             <li class="widget-list-item widget-list-item-blue">
                                 <span class="widget-list-item-icon"><i class="material-icons-outlined">play_circle</i></span>
                                 <span class="widget-list-item-description">
-                                    <a href="#" class="widget-list-item-description-title">
+                                    <a href="{% url 'video_detail' pk=video.pk %}" class="widget-list-item-description-title">
                                         {{ video.title }}
                                     </a>
                                     <span class="widget-list-item-description-subtitle">
