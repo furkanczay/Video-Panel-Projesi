@@ -1,0 +1,15 @@
+{% extends 'manager/alt_base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Genel Ayarlar
+{% endblock %}
+{% block page_header %}
+    Genel Ayarlar
+{% endblock %}
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Ayarları Kaydet</button>
+    </form>
+{% endblock %}
