@@ -20,6 +20,7 @@
     <link href="{% static 'manager/css/tabler-payments.min.css' %}" rel="stylesheet"/>
     <link href="{% static 'manager/css/tabler-vendors.min.css' %}" rel="stylesheet"/>
     <link href="{% static 'manager/css/demo.min.css' %}" rel="stylesheet"/>
+    {% block css_files %}{% endblock %}
     <style>
       @import url('https://rsms.me/inter/inter.css');
       :root {
@@ -46,5 +47,6 @@
     <!-- Tabler Core -->
     <script src="{% static 'manager/js/tabler.min.js' %}" defer></script>
     <script src="{% static 'manager/js/demo.min.js' %}" defer></script>
+    {% block js_files %}{% endblock %}
   </body>
 </html>
