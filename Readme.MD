@@ -17,9 +17,9 @@
         <span style="background: gray;color: whitesmoke; padding: 2px 5px; border-radius: 7px">Yakında</span>
     <br />
     <br />
-    <a href="#">Hata Raporla</a>
+    <a href="https://github.com/furkannozay/AcademyProject/issues">Hata Raporla</a>
     ·
-    <a href="#">Öneride Bulun</a>
+    <a href="https://github.com/furkannozay/AcademyProject/issues">Öneride Bulun</a>
   </p>
 </div>
 
