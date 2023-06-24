@@ -110,67 +110,55 @@
                         <div class="dropdown-menu dropdown-menu-end notifications-dropdown" aria-labelledby="notificationsDropDown">
                             <h6 class="dropdown-header">{{ request.user.get_full_name }} <span class="badge badge-warning">{{ request.user.groups.first }}</span></h6>
                             <div class="notifications-dropdown-list">
-                                <a href="{% url 'instructor_panel' %}">
+                                {% if request.user|has_group:'Eğitmen' %}
+                                    <a href="{% url 'instructor_panel' %}">
+                                        <div class="notifications-dropdown-item align-items-center">
+                                            <div class="notifications-dropdown-item-image">
+                                                <span class="notifications-badge bg-info text-white">
+                                                    <i class="material-icons-outlined">dashboard_customize</i>
+                                                </span>
+                                            </div>
+                                            <div class="notifications-dropdown-item-text">
+                                                <p class="bold-notifications-text">Eğitmen Paneli</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                {% endif %}
+                                {% if request.user|has_group:'Öğrenci' %}
+                                    <a href="#">
+                                        <div class="notifications-dropdown-item align-items-center">
+                                            <div class="notifications-dropdown-item-image">
+                                                <span class="notifications-badge bg-danger text-white">
+                                                    <i class="material-icons-outlined">bolt</i>
+                                                </span>
+                                            </div>
+                                            <div class="notifications-dropdown-item-text">
+                                                <p class="bold-notifications-text">Öğrenci Paneli</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                {% endif %}
+                                <a href="#">
                                     <div class="notifications-dropdown-item align-items-center">
                                         <div class="notifications-dropdown-item-image">
-                                            <span class="notifications-badge bg-info text-white">
-                                                <i class="material-icons-outlined">dashboard_customize</i>
-                                            </span>
-                                        </div>
-                                        <div class="notifications-dropdown-item-text">
-                                            <p class="bold-notifications-text">Eğitmen Paneli</p>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="notifications-dropdown-item">
-                                        <div class="notifications-dropdown-item-image">
-                                            <span class="notifications-badge bg-danger text-white">
-                                                <i class="material-icons-outlined">bolt</i>
-                                            </span>
-                                        </div>
-                                        <div class="notifications-dropdown-item-text">
-                                            <p class="bold-notifications-text">Quisque ligula dui, tincidunt nec pharetra eu, fringilla quis mauris</p>
-                                            <small>18:00</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="notifications-dropdown-item">
-                                        <div class="notifications-dropdown-item-image">
                                             <span class="notifications-badge bg-success text-white">
-                                                <i class="material-icons-outlined">alternate_email</i>
+                                                <i class="material-icons-outlined">person</i>
                                             </span>
                                         </div>
                                         <div class="notifications-dropdown-item-text">
-                                            <p>Nulla id libero mattis justo euismod congue in et metus</p>
-                                            <small>yesterday</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="notifications-dropdown-item">
-                                        <div class="notifications-dropdown-item-image">
-                                            <span class="notifications-badge">
-                                                <img src="../../assets/images/avatars/avatar.png" alt="">
-                                            </span>
-                                        </div>
-                                        <div class="notifications-dropdown-item-text">
-                                            <p>Praesent sodales lobortis velit ac pellentesque</p>
-                                            <small>yesterday</small>
+                                            <p>Profilim</p>
                                         </div>
                                     </div>
                                 </a>
                                 <a href="{% url 'logout' %}">
-                                    <div class="notifications-dropdown-item">
+                                    <div class="notifications-dropdown-item align-items-center">
                                         <div class="notifications-dropdown-item-image">
-                                            <span class="notifications-badge">
-                                                <img src="../../assets/images/avatars/avatar.png" alt="">
+                                            <span class="notifications-badge bg-danger text-white">
+                                                <i class="material-icons-outlined">exit_to_app</i>
                                             </span>
                                         </div>
                                         <div class="notifications-dropdown-item-text">
-                                            <p>Praesent lacinia ante eget tristique mattis. Nam sollicitudin velit sit amet auctor porta</p>
-                                            <small>yesterday</small>
+                                            <p>Çıkış Yap</p>
                                         </div>
                                     </div>
                                 </a>
