@@ -5,4 +5,4 @@ from apps.manager.models import GeneralSettings, LinksSettings
 class GeneralSettingsForm(ModelForm):
     class Meta:
         model = GeneralSettings
-        fields = '__all__'
+        exclude = ['site_version', 'site_developers']

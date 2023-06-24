@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import GeneralSettings, LinksSettings
 
-# Register your models here.
+admin.site.register(GeneralSettings)
+admin.site.register(LinksSettings)
