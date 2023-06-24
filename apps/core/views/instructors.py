@@ -19,7 +19,7 @@ def instructor_panel(request):
 @group_required('Eğitmen')
 def video_upload(request):
     if request.method == 'POST':
-        form = VideoUpload(request.POST, request.FILES)
+        form = VideoUpload(request.POST, request.FILES, user=request.user)
         if form.is_valid():
             video = form.save(commit=False)
             video.instructor = request.user
@@ -27,7 +27,7 @@ def video_upload(request):
             messages.success(request, 'Video başarıyla yüklendi')
             return redirect('instructor_panel')
     else:
-        form = VideoUpload()
+        form = VideoUpload(user=request.user)
     return render(request, 'user/instructors/video_upload.html', {
         'form': form
     })

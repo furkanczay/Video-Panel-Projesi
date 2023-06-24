@@ -1,0 +1,53 @@
+{% extends 'user/alt_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Videolar
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Filtrele</h2>
+                    <form method="GET" action="{% url 'videos_list' %}">
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-info">Filtrele</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="row">
+                {% for video in videos %}
+                    <div class="col-6">
+                        <div class="card-header bg-secondary text-dark">
+                            <div class="row d-flex align-items-center">
+                                <div class="col d-flex align-items-center gap-3">
+                                    <img class="avatar avatar-xs avatar-rounded" src="{{ video.instructor.avatar.url }}" alt="">
+                                    {{ video.instructor }}
+                                </div>
+                                <div class="col float-end">
+                                    {{ video.created_on }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="{% static 'user/images/cards/card.png' %}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ video.title }}</h5>
+                                <p class="card-text">{{ video.description|truncatewords:50 }}</p>
+                                <a href="{% url 'video_detail' pk=video.pk %}" class="btn btn-primary">Videoyu izle</a>
+                            </div>
+                            <div class="card-footer">
+                                {{ video.classroom.course }} | {{ video.classroom }}
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="alert alert-warning">Hiç video bulunamadı :(</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

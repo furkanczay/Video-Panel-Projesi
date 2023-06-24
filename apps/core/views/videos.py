@@ -1,6 +1,25 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from apps.core.models import Videos, VideoComments
 from django.contrib import messages
+from apps.core.forms.videos_forms import VideoFilterForm
+
+
+def videos_list(request):
+    form = VideoFilterForm(request.GET)
+    if form.is_valid():
+        course = form.cleaned_data.get('course')
+
+        videos = Videos.objects.all().order_by('-id')
+
+        if course:
+            videos = videos.filter(classroom__course=course)
+
+    else:
+        videos = Videos.objects.all().order_by('-id')
+    return render(request, 'user/videos/list.html', {
+        'videos': videos,
+        'form': form
+    })
 
 
 def video_detail(request, pk):

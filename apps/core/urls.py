@@ -9,11 +9,14 @@ urlpatterns = [
         path('logout/', auth_views.LogoutView.as_view(), name='logout'),
         path('profile/', users.profile, name='profile'),
         path('issues/', main.issues, name='issues'),
+        # INSTRUCTOR URLS
         path('instructor-panel/', include([
             path('', instructors.instructor_panel, name='instructor_panel'),
             path('video-upload/', instructors.video_upload, name='video_upload'),
         ])),
+        # VIDEOS URLS
         path('videos/', include([
+            path('', videos.videos_list, name='videos_list'),
             path('<int:pk>/', videos.video_detail, name='video_detail'),
             path('comments/create/', videos.video_comment_create, name='video_comment_create'),
             path('comments/delete/<int:pk>/', videos.video_comment_delete, name='video_comment_delete'),
