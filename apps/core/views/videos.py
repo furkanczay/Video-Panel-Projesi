@@ -9,6 +9,7 @@ def videos_list(request):
     if form.is_valid():
         course = form.cleaned_data.get('course')
         instructor = form.cleaned_data.get('instructor')
+        classroom = form.cleaned_data.get('classroom')
 
         videos = Videos.objects.all().order_by('-id')
 
@@ -16,6 +17,8 @@ def videos_list(request):
             videos = videos.filter(classroom__course=course)
         if instructor:
             videos = videos.filter(instructor=instructor)
+        if classroom:
+            videos = videos.filter(classroom=classroom)
 
     else:
         videos = Videos.objects.all().order_by('-id')
