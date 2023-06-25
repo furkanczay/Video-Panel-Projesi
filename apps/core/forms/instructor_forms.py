@@ -1,9 +1,10 @@
 from django import forms
 from apps.core.models import Videos, Classroom
+from django.utils.translation import gettext_lazy as _
 
 
 class VideoUpload(forms.ModelForm):
-    classroom = forms.ModelChoiceField(queryset=Classroom.objects.none())
+    classroom = forms.ModelChoiceField(queryset=Classroom.objects.none(), label=_('Sınıf'))
 
     class Meta:
         model = Videos
