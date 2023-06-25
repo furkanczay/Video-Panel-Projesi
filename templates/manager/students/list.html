@@ -57,8 +57,8 @@
                                         <td class="sort-birth-date">{{ student.birth_date }}</td>
                                         <td class="sort-country">{{ student.country }}</td>
                                         <td class="d-flex flex-row gap-2">
-                                            <a href="" class="btn btn-info">Düzenle</a>
-                                            <a href="" class="btn btn-danger">Sil</a>
+                                            <a href="{% url 'admin_students_update' pk=student.pk %}" class="btn btn-info">Düzenle</a>
+                                            <a href="{% url 'admin_students_delete' pk=student.pk %}" class="btn btn-danger">Sil</a>
                                         </td>
                                  </tr>
                             {% endfor %}

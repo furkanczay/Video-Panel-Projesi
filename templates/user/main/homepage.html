@@ -1,5 +1,6 @@
 {% extends 'user/alt_base.html' %}
 {% load i18n %}
+{% load general %}
 {% block title %}
     {% trans 'Anasayfa' %}
 {% endblock %}
@@ -26,15 +27,11 @@
                             <div class="card-body">
                                 <div class="widget-stats-container d-flex">
                                     <div class="widget-stats-icon widget-stats-icon-primary">
-                                        <i class="material-icons-outlined">paid</i>
+                                        <i class="material-icons-outlined">person</i>
                                     </div>
                                     <div class="widget-stats-content flex-fill">
-                                        <span class="widget-stats-title">Today's Sales</span>
-                                        <span class="widget-stats-amount">$38,211</span>
-                                        <span class="widget-stats-info">471 Orders Total</span>
-                                    </div>
-                                    <div class="widget-stats-indicator widget-stats-indicator-negative align-self-start">
-                                        <i class="material-icons">keyboard_arrow_down</i> 4%
+                                        <span class="widget-stats-title">Öğrenci Sayısı</span>
+                                        <span class="widget-stats-amount">{% students_count %}</span>
                                     </div>
                                 </div>
                             </div>
@@ -48,12 +45,8 @@
                                         <i class="material-icons-outlined">person</i>
                                     </div>
                                     <div class="widget-stats-content flex-fill">
-                                        <span class="widget-stats-title">Active Users</span>
-                                        <span class="widget-stats-amount">23,491</span>
-                                        <span class="widget-stats-info">790 unique this month</span>
-                                    </div>
-                                    <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
-                                        <i class="material-icons">keyboard_arrow_up</i> 12%
+                                        <span class="widget-stats-title">Eğitmen Sayısı</span>
+                                        <span class="widget-stats-amount">{% instructors_count %}</span>
                                     </div>
                                 </div>
                             </div>
@@ -64,15 +57,11 @@
                             <div class="card-body">
                                 <div class="widget-stats-container d-flex">
                                     <div class="widget-stats-icon widget-stats-icon-danger">
-                                        <i class="material-icons-outlined">file_download</i>
+                                        <i class="material-icons-outlined">play_circle</i>
                                     </div>
                                     <div class="widget-stats-content flex-fill">
-                                        <span class="widget-stats-title">Downloads</span>
-                                        <span class="widget-stats-amount">140,390</span>
-                                        <span class="widget-stats-info">87 items downloaded</span>
-                                    </div>
-                                    <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
-                                        <i class="material-icons">keyboard_arrow_up</i> 7%
+                                        <span class="widget-stats-title">Video Sayısı</span>
+                                        <span class="widget-stats-amount">{% videos_count %}</span>
                                     </div>
                                 </div>
                             </div>
@@ -237,7 +226,7 @@
                     <div class="col-xl-4">
                         <div class="card widget widget-payment-request">
                             <div class="card-header">
-                                <h5 class="card-title">Payment Request<span class="badge badge-warning badge-style-light">8 June</span></h5>
+                                <h5 class="card-title">Bağlantılar</h5>
                             </div>
                             <div class="card-body">
                                 <div class="widget-payment-request-container">
@@ -246,7 +235,7 @@
                                             <img src="../../assets/images/avatars/avatar.png" alt="">
                                         </div>
                                         <div class="widget-payment-request-author-info">
-                                            <span class="widget-payment-request-author-name">Caio Yousuke</span>
+                                            <span class="widget-payment-request-author-name">Acunmedya Akademi Yazılım</span>
                                             <span class="widget-payment-request-author-about">Customer Journey Expert</span>
                                         </div>
                                     </div>
