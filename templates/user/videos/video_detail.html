@@ -2,13 +2,24 @@
 {% block title %}
     {{ video.title }}
 {% endblock %}
+{% block css_files %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.5.0/video-js.min.css" integrity="sha512-Oh3WHEemzP10ZRZNZYLfQ6udAd1U53SJk/yLcjdQ7mneqWXfJ5kVc2cdgZlmGIKbRAnz/VcuLCgtJ8Xi70DeWQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+{% block js_files %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.5.0/video.min.js" integrity="sha512-ukno7nvJS8h8P+++oaiXPIm/4uyl5PumrJ5w/Wgsf4OgMZHlUneEVmDMzn7srh5kFgkPrmBZ30oPKdCP8fdHkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      let player = videojs('my-video');
+    });
+    </script>
+{% endblock %}
 {% block content %}
 <div class="row">
     <div class="col-8">
         <div class="card">
             <div class="card-header text-center">{{ video.title }}</div>
             <div class="card-body align-items-center">
-                <video style="max-width: 100%" class="object-fit-fill border border-primary rounded" controls>
+                <video id="my-video" preload="auto" style="max-width: 100%" class="video-js vjs-default-skin object-fit-fill border border-primary rounded" controls>
                   <source src="{{ video.video_file.url }}" type="video/mp4">
                 Your browser does not support the video tag.
                 </video>
