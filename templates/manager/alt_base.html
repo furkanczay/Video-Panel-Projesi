@@ -10,11 +10,14 @@
     <div class="page-header d-print-none">
       <div class="container-xl">
         <div class="row g-2 align-items-center">
-          <div class="col">
-            <h2 class="page-title">
-                {% block page_header %}{% endblock %}
-            </h2>
-          </div>
+              <div class="col">
+                <h2 class="page-title">
+                    {% block page_header %}{% endblock %}
+                </h2>
+              </div>
+              <div class="col">
+                  {% block button %}{% endblock %}
+              </div>
         </div>
       </div>
     </div>

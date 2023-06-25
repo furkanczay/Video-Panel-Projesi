@@ -6,6 +6,9 @@
 {% block page_header %}
     Eğitmenler
 {% endblock %}
+{% block button %}
+    <a href="{% url 'admin_instructors_create' %}" class="btn btn-success float-end">Eğitmen Ekle</a>
+{% endblock %}
 {% block js_files %}
     <script src="{% static 'manager/libs/list.js/dist/list.min.js' %}" defer></script>
     <script>
