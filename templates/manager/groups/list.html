@@ -51,7 +51,7 @@
                                         <td class="sort-name">{{ group.name }}</td>
                                         <td class="d-flex flex-row gap-2">
                                             <a href="{% url 'admin_groups_update' pk=group.pk %}" class="btn btn-info">Düzenle</a>
-                                            <a href="{% url 'admin_groups_delete' pk=group.pk %}" class="btn btn-danger">Sil</a>
+                                            <a href="{% url 'admin_groups_delete' pk=group.pk %}" onclick="return confirm('Silme işlemini onaylıyor musunuz?')" class="btn btn-danger">Sil</a>
                                         </td>
                                  </tr>
                             {% endfor %}

@@ -44,7 +44,7 @@ def student_update(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'Öğrenci başarıyla güncellendi')
-            return redirect('admin_students_page')
+            return redirect('admin_students_list')
     else:
         form = StudentUpdateForm(instance=student)
     return render(request, 'manager/students/update.html', context={
@@ -59,4 +59,4 @@ def student_delete(request, pk):
     student = get_object_or_404(Users, pk=pk).delete()
     if student:
         messages.success(request, 'Öğrenci Başarıyla Silindi')
-        return redirect('admin_students_page')
+        return redirect('admin_students_list')

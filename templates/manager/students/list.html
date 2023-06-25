@@ -10,7 +10,7 @@
     <a href="{% url 'admin_students_create' %}" class="btn btn-success float-end">Öğrenci Ekle</a>
 {% endblock %}
 {% block js_files %}
-    <script src="{% static 'manager/libs/list.js/dist/list.min.js' %}" defer></script>
+    <script src="{% static 'manager/libs/list.js/dist/list.min.js' %}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
           const list = new List('table-default', {
@@ -21,8 +21,6 @@
                 valueNames: [ 'sort-student-number', 'sort-full-name', 'sort-email', 'sort-birth-date', 'sort-country'],
                   page: 10, // Sayfa başına öğe sayısı (örneğin 10 öğe)
                   pagination: true, // Sayfalama özelliğini etkinleştirin
-                  paginationClass: 'pagination', // Sayfalama düğmelerinin sınıfını belirtin
-                  paginationContainer: document.getElementById('pagination-container'), // Sayfalama alanını belirtin
 
 
           });
@@ -61,14 +59,14 @@
                                         <td class="sort-country">{{ student.country }}</td>
                                         <td class="d-flex flex-row gap-2">
                                             <a href="{% url 'admin_students_update' pk=student.pk %}" class="btn btn-info">Düzenle</a>
-                                            <a href="{% url 'admin_students_delete' pk=student.pk %}" class="btn btn-danger">Sil</a>
+                                            <a href="{% url 'admin_students_delete' pk=student.pk %}" onclick="return confirm('Silme işlemini onaylıyor musunuz?')" class="btn btn-danger">Sil</a>
                                         </td>
                                  </tr>
                             {% endfor %}
                         </tbody>
                       </table>
                         <div id="pagination-container">
-                           <ul class="pagination m-0 ms-auto"></ul>
+                           <ul class="pagination"></ul>
                         </div>
                 </div>
               </div>

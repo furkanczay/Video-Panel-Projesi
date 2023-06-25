@@ -57,7 +57,7 @@
                                         <td class="sort-country">{{ instructor.country }}</td>
                                         <td class="d-flex flex-row gap-2">
                                             <a href="{% url 'admin_instructors_update' pk=instructor.pk %}" class="btn btn-info">Düzenle</a>
-                                            <a href="{% url 'admin_instructors_delete' pk=instructor.pk %}" class="btn btn-danger">Sil</a>
+                                            <a href="{% url 'admin_instructors_delete' pk=instructor.pk %}" onclick="return confirm('Silme işlemini onaylıyor musunuz?')" class="btn btn-danger">Sil</a>
                                         </td>
                                  </tr>
                             {% endfor %}

@@ -1,5 +1,9 @@
 {% extends 'manager/alt_base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
+{% block js_files %}
+    <script src="{% static 'manager/js/permissions-select.js' %}"></script>
+{% endblock %}
 {% block title %}
     Kullanıcı Grubu Ekle
 {% endblock %}

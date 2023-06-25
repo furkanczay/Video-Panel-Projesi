@@ -8,7 +8,7 @@
 * Copyright 2018-2023 codecalm.net Paweł Kuna
 * Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
 -->
-<html lang="en">
+<html lang="tr">
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
@@ -20,6 +20,7 @@
     <link href="{% static 'manager/css/tabler-payments.min.css' %}" rel="stylesheet"/>
     <link href="{% static 'manager/css/tabler-vendors.min.css' %}" rel="stylesheet"/>
     <link href="{% static 'manager/css/demo.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'manager/css/custom.css' %}">
     <link rel="stylesheet" href="{% static 'base/webfont/tabler-icons.min.css' %}">
     {% block css_files %}{% endblock %}
     <style>
@@ -46,8 +47,22 @@
     </div>
     <!-- Libs JS -->
     <!-- Tabler Core -->
+    <script src="{% static 'base/js/sweetalert.min.js' %}"></script>
     <script src="{% static 'manager/js/tabler.min.js' %}" defer></script>
     <script src="{% static 'manager/js/demo.min.js' %}" defer></script>
+    <script src="{% static 'manager/libs/tom-select/dist/js/tom-select.base.min.js' %}" defer></script>
+    <script>
+        {% if messages %}
+            {% for message in messages %}
+                swal({
+                    text: "{{message}}",
+                    icon: "{{message.tags}}",
+                    timer: 1500,
+                    buttons: false
+                });
+            {% endfor %}
+        {% endif %}
+    </script>
     {% block js_files %}{% endblock %}
   </body>
 </html>
