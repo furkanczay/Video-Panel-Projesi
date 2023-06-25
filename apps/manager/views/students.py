@@ -39,19 +39,15 @@ def student_create(request):
 @staff_member_required()
 def student_update(request, pk):
     student = get_object_or_404(Users, pk=pk)
-    initial_data = {'classroom': student.student_classroom.first()}
     if request.method == 'POST':
-        form = StudentUpdateForm(request.POST, request.FILES, instance=student, initial=initial_data)
+        form = StudentUpdateForm(request.POST, request.FILES, instance=student)
         if form.is_valid():
             form.save()
-            student.student_classroom.clear()  # Öğrencinin bağlı olduğu eski sınıfları kaldır
-            selected_classroom = form.cleaned_data['classroom']
-            student.student_classroom.add(selected_classroom)
             messages.success(request, 'Öğrenci başarıyla güncellendi')
             return redirect('admin_students_page')
     else:
-        form = StudentUpdateForm(instance=student, initial=initial_data)
-    return render(request, 'pages/users/students/update.html', context={
+        form = StudentUpdateForm(instance=student)
+    return render(request, 'manager/students/update.html', context={
         'form': form,
         'student': student
     })

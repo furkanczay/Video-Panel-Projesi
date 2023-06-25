@@ -1,0 +1,15 @@
+{% extends 'manager/alt_base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Kullanıcı Grubunu Güncelle
+{% endblock %}
+{% block page_header %}
+    Kullanıcı Grubunu Güncelle
+{% endblock %}
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Kullanıcı Grubunu Güncelle</button>
+    </form>
+{% endblock %}

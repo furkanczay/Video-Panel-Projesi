@@ -1,0 +1,63 @@
+{% extends 'manager/alt_base.html' %}
+{% load static %}
+{% block title %}
+    Kullanıcı Grupları
+{% endblock %}
+{% block page_header %}
+    Kullanıcı Grupları
+{% endblock %}
+{% block js_files %}
+    <script src="{% static 'manager/libs/list.js/dist/list.min.js' %}" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const list = new List('table-default', {
+            sortClass: 'table-sort',
+            searchClass: 'search-input', // Arama alanının sınıfını belirtin
+            searchDelay: 300,
+            listClass: 'table-tbody',
+            valueNames: [ 'sort-name'],
+            page: 10, // Sayfa başına öğe sayısı (örneğin 10 öğe)
+            pagination: true, // Sayfalama özelliğini etkinleştirin
+            paginationClass: 'pagination', // Sayfalama düğmelerinin sınıfını belirtin
+            paginationContainer: document.getElementById('pagination-container'), // Sayfalama alanını belirtin
+          });
+          const searchInput = document.getElementById('search-input');
+           searchInput.addEventListener('input', function() {
+              list.search(this.value);
+           });
+        })
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="mb-3">
+       <input type="text" class="form-control" id="search-input" placeholder="Ara...">
+    </div>
+    <div class="card">
+              <div class="card-body">
+                <div id="table-default" class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th><button class="table-sort" data-sort="sort-name">Grup Adı</button></th>
+                            <th class="w-1"></th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-tbody">
+                            {% for group in groups %}
+                                 <tr>
+                                        <td class="sort-name">{{ group.name }}</td>
+                                        <td class="d-flex flex-row gap-2">
+                                            <a href="{% url 'admin_groups_update' pk=group.pk %}" class="btn btn-info">Düzenle</a>
+                                            <a href="{% url 'admin_groups_delete' pk=group.pk %}" class="btn btn-danger">Sil</a>
+                                        </td>
+                                 </tr>
+                            {% endfor %}
+                        </tbody>
+                      </table>
+                        <div id="pagination-container">
+                           <ul class="pagination m-0 ms-auto"></ul>
+                        </div>
+                </div>
+              </div>
+            </div>
+{% endblock %}

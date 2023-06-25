@@ -1,0 +1,69 @@
+{% extends 'manager/alt_base.html' %}
+{% load static %}
+{% block title %}
+    Eğitmenler
+{% endblock %}
+{% block page_header %}
+    Eğitmenler
+{% endblock %}
+{% block js_files %}
+    <script src="{% static 'manager/libs/list.js/dist/list.min.js' %}" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const list = new List('table-default', {
+            sortClass: 'table-sort',
+            searchClass: 'search-input', // Arama alanının sınıfını belirtin
+            searchDelay: 300,
+            listClass: 'table-tbody',
+            valueNames: [ 'sort-student-number', 'sort-full-name', 'sort-email', 'sort-birth-date', 'sort-country'],
+            page: 10, // Sayfa başına öğe sayısı (örneğin 10 öğe)
+            pagination: true, // Sayfalama özelliğini etkinleştirin
+            paginationClass: 'pagination', // Sayfalama düğmelerinin sınıfını belirtin
+            paginationContainer: document.getElementById('pagination-container'), // Sayfalama alanını belirtin
+          });
+          const searchInput = document.getElementById('search-input');
+           searchInput.addEventListener('input', function() {
+              list.search(this.value);
+           });
+        })
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="mb-3">
+       <input type="text" class="form-control" id="search-input" placeholder="Ara...">
+    </div>
+    <div class="card">
+              <div class="card-body">
+                <div id="table-default" class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th><button class="table-sort" data-sort="sort-full-name">Adı Soyadı</button></th>
+                            <th><button class="table-sort" data-sort="sort-email">Eposta Adresi</button></th>
+                            <th><button class="table-sort" data-sort="sort-birth-date">Doğum Tarihi</button></th>
+                            <th><button class="table-sort" data-sort="sort-country">Ülke</button></th>
+                            <th class="w-1"></th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-tbody">
+                            {% for instructor in instructors %}
+                                 <tr>
+                                        <td class="sort-full-name">{{ instructor.get_full_name }}</td>
+                                        <td class="sort-email">{{ instructor.email }}</td>
+                                        <td class="sort-birth-date">{{ instructor.birth_date }}</td>
+                                        <td class="sort-country">{{ instructor.country }}</td>
+                                        <td class="d-flex flex-row gap-2">
+                                            <a href="{% url 'admin_instructors_update' pk=instructor.pk %}" class="btn btn-info">Düzenle</a>
+                                            <a href="{% url 'admin_instructors_delete' pk=instructor.pk %}" class="btn btn-danger">Sil</a>
+                                        </td>
+                                 </tr>
+                            {% endfor %}
+                        </tbody>
+                      </table>
+                        <div id="pagination-container">
+                           <ul class="pagination m-0 ms-auto"></ul>
+                        </div>
+                </div>
+              </div>
+            </div>
+{% endblock %}
