@@ -9,6 +9,10 @@ class VideoUpload(forms.ModelForm):
     class Meta:
         model = Videos
         fields = ['title', 'description', 'video_file', 'link', 'classroom']
+        help_texts = {
+            'link': 'Eğer ders içeriğinde kullanılan kodları paylaşmak istiyorsanız link ekleyebilirsiniz',
+            'video_file': 'Yalnızca .mp4 videolar desteklenmektedir.'
+        }
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
