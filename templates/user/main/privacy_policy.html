@@ -1,0 +1,9 @@
+{% extends 'user/alt_base.html' %}
+{% load site_settings %}
+{% get_general_settings as general_settings %}
+{% block title %}
+    Gizlilik Politikası
+{% endblock %}
+{% block content %}
+    {{ general_settings.site_privacy_policy }}
+{% endblock %}
