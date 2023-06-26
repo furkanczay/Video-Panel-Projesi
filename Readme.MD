@@ -46,13 +46,21 @@ düzeltmek adına kullanmak istedim, ve ortaya bu proje çıktı! <br>
 
 <!-- ROADMAP -->
 ## Roadmap
-
-- [x] Eğitmen ve sınıf bağlantısı
-- [x] Eğitmen Video Yükleme Filtrelemeleri
-- [ ] Videolar sayfasında filtrelemeye sınıfların eklenmesi
 - [ ] Çoklu Dil Desteği
     - [ ] İngilizce
     - [ ] Almanca
+- [ ] Faydalı Linkler Özelliği
+- [ ] Ödev Takip Sistemi
+- [ ] Personel Destek Sistemi
+- [ ] İstek Öneri Şikayet Sistemi
+- [ ] Yoklama Sistemi
+    - [ ] Eğitmen Yoklama Oluşturma
+    - [ ] Personel Yoklama Raporu
+    - [ ] Öğrenci Kişisel Yoklama Raporu
+- [ ] Ders Anketleri Sistemi
+- [ ] Vitrin Site
+- [ ] Başvuru Sistemi (Gelişmiş)
+- [ ] Aday Öğrenci Sistemi
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
