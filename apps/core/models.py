@@ -105,8 +105,22 @@ class Issues(AbstractDatesModel):
         return self.subject
 
 
+class CourseCategories(AbstractDatesModel):
+    name = models.CharField(_('İsim'), max_length=120)
+
+    class Meta:
+        db_table = 'course_categories'
+        verbose_name = _('Kurs Kategorisi')
+        verbose_name_plural = _('Kurs Kategorileri')
+
+    def __str__(self):
+        return self.name
+
+
 class Courses(AbstractDatesModel):
     name = models.CharField(_('İsim'), max_length=120)
+    category = models.ForeignKey(CourseCategories, on_delete=models.SET_NULL, null=True, blank=True,
+                                 verbose_name=_('Kurs Kategorisi'))
 
     class Meta:
         db_table = 'courses'

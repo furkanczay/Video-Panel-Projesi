@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import main, students, instructors, groups
+from .views import main, students, instructors, groups, courses
 
 urlpatterns = [
     path('', include([
@@ -27,6 +27,20 @@ urlpatterns = [
             path('create/', groups.group_create, name='admin_groups_create'),
             path('update/<int:pk>/', groups.group_update, name='admin_groups_update'),
             path('delete/<int:pk>/', groups.group_delete, name='admin_groups_delete'),
+        ])),
+        # COURSE CATEGORIES URLS
+        path('course-categories/', include([
+            path('', courses.course_categories_page, name='admin_course_categories_page'),
+            path('create', courses.course_category_create, name='admin_course_categories_create'),
+            path('update/<int:pk>/', courses.course_category_update, name='admin_course_categories_update'),
+            path('delete/<int:pk>/', courses.course_category_delete, name='admin_course_categories_delete'),
+        ])),
+        # COURSES URLS
+        path('courses/', include([
+            path('', courses.courses_page, name='admin_courses_page'),
+            path('create/', courses.course_create, name='admin_courses_create'),
+            path('update/<int:pk>/', courses.course_update, name='admin_courses_update'),
+            path('delete/<int:pk>/', courses.course_delete, name='admin_courses_delete'),
         ])),
     ]))
 ]
