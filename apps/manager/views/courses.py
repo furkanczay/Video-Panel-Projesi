@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from apps.core.models import Courses, CourseCategories
-from apps.manager.forms.courses import CourseForm, CourseCategoryForm
+from apps.core.models import Courses, CourseCategories, Classroom
+from apps.manager.forms.courses import CourseForm, CourseCategoryForm, ClassroomForm
 from django.contrib import messages
 
 
@@ -90,3 +90,47 @@ def course_delete(request, pk):
     if course:
         messages.success(request, 'Kurs başarıyla silindi')
         return redirect('admin_courses_page')
+
+
+def classrooms_page(request):
+    classrooms = Classroom.objects.all()
+    return render(request, 'manager/courses/classrooms/list.html', context={
+        'classrooms': classrooms
+    })
+
+
+def classrooms_create(request):
+    if request.method == 'POST':
+        form = ClassroomForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Sınıf başarıyla oluşturuldu')
+            return redirect('admin_classrooms_page')
+    else:
+        form = ClassroomForm()
+    return render(request, 'manager/courses/classrooms/create.html', context={
+        'form': form
+    })
+
+
+def classroom_update(request, pk):
+    classroom = get_object_or_404(Classroom, pk=pk)
+    if request.method == 'POST':
+        form = ClassroomForm(request.POST, instance=classroom)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Sınıf başarıyla güncellendi')
+            return redirect('admin_classrooms_page')
+    else:
+        form = ClassroomForm(instance=classroom)
+    return render(request, 'manager/courses/classrooms/update.html', context={
+        'classroom': classroom,
+        'form': form
+    })
+
+
+def classroom_delete(request, pk):
+    classroom = get_object_or_404(Classroom, pk=pk).delete()
+    if classroom:
+        messages.success(request, 'Sınıf başarıyla silindi')
+        return redirect('admin_classrooms_page')

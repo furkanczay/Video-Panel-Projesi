@@ -42,5 +42,12 @@ urlpatterns = [
             path('update/<int:pk>/', courses.course_update, name='admin_courses_update'),
             path('delete/<int:pk>/', courses.course_delete, name='admin_courses_delete'),
         ])),
+        # CLASSROOMS URLS
+        path('classrooms/', include([
+            path('', courses.classrooms_page, name='admin_classrooms_page'),
+            path('create/', courses.classrooms_create, name='admin_classrooms_create'),
+            path('update/<int:pk>/', courses.classroom_update, name='admin_classrooms_update'),
+            path('delete/<int:pk>/', courses.classroom_delete, name='admin_classrooms_delete'),
+        ])),
     ]))
 ]

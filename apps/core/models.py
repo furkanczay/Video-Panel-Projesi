@@ -134,7 +134,7 @@ class Courses(AbstractDatesModel):
 class Classroom(AbstractDatesModel):
     name = models.CharField(_('İsim'), max_length=120)
     course = models.ForeignKey(Courses, on_delete=models.CASCADE, related_name='classrooms', verbose_name=_('Kurs'))
-    instructor = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='instructor_classrooms', default=1,
+    instructor = models.ForeignKey(Users, on_delete=models.SET_NULL, related_name='instructor_classrooms', null=True,
                                    verbose_name=_('Eğitmen'), limit_choices_to={'groups__name': 'Eğitmen'})
 
     class Meta:
@@ -151,8 +151,10 @@ class Videos(AbstractDatesModel):
     description = models.TextField(_('Açıklama'))
     video_file = models.FileField(_('Video'), upload_to='videos/', validators=[validate_file_extension])
     link = models.URLField(_('Link'), null=True, blank=True)
-    classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE, related_name='videos', default=1, verbose_name=_('Sınıf'))
-    instructor = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='instructor_videos', default=1, verbose_name=_('Eğitmen'))
+    classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE, related_name='videos', default=1,
+                                  verbose_name=_('Sınıf'))
+    instructor = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='instructor_videos', default=1,
+                                   verbose_name=_('Eğitmen'))
 
     class Meta:
         db_table = 'videos'

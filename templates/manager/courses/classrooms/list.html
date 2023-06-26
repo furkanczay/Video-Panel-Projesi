@@ -1,0 +1,70 @@
+{% extends 'manager/alt_base.html' %}
+{% load static %}
+{% block title %}
+    Sınıflar
+{% endblock %}
+{% block page_header %}
+    Sınıflar
+{% endblock %}
+{% block button %}
+    <a href="{% url 'admin_classrooms_create' %}" class="btn btn-success float-end">Sınıf Ekle</a>
+{% endblock %}
+{% block js_files %}
+    <script src="{% static 'manager/libs/list.js/dist/list.min.js' %}" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const list = new List('table-default', {
+            sortClass: 'table-sort',
+            searchClass: 'search-input', // Arama alanının sınıfını belirtin
+            searchDelay: 300,
+            listClass: 'table-tbody',
+            valueNames: [ 'sort-name', 'sort-course', 'sort-instructor'],
+            page: 10, // Sayfa başına öğe sayısı (örneğin 10 öğe)
+            pagination: true, // Sayfalama özelliğini etkinleştirin
+            paginationClass: 'pagination', // Sayfalama düğmelerinin sınıfını belirtin
+            paginationContainer: document.getElementById('pagination-container'), // Sayfalama alanını belirtin
+          });
+          const searchInput = document.getElementById('search-input');
+           searchInput.addEventListener('input', function() {
+              list.search(this.value);
+           });
+        })
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="mb-3">
+       <input type="text" class="form-control" id="search-input" placeholder="Ara...">
+    </div>
+    <div class="card">
+              <div class="card-body">
+                <div id="table-default" class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th><button class="table-sort" data-sort="sort-name">Sınıf Adı</button></th>
+                            <th><button class="table-sort" data-sort="sort-course">Kurs</button></th>
+                            <th><button class="table-sort" data-sort="sort-instructor">Eğitmen</button></th>
+                            <th class="w-1"></th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-tbody">
+                            {% for classroom in classrooms %}
+                                 <tr>
+                                        <td class="sort-name">{{ classroom.name }}</td>
+                                        <td class="sort-course">{{ classroom.course }}</td>
+                                        <td class="sort-instructor">{{ classroom.instructor }}</td>
+                                        <td class="d-flex flex-row gap-2">
+                                            <a href="{% url 'admin_classrooms_update' pk=classroom.pk %}" class="btn btn-info">Düzenle</a>
+                                            <a href="{% url 'admin_classrooms_delete' pk=classroom.pk %}" onclick="return confirm('Silme işlemini onaylıyor musunuz?')" class="btn btn-danger">Sil</a>
+                                        </td>
+                                 </tr>
+                            {% endfor %}
+                        </tbody>
+                      </table>
+                        <div id="pagination-container">
+                           <ul class="pagination m-0 ms-auto"></ul>
+                        </div>
+                </div>
+              </div>
+            </div>
+{% endblock %}

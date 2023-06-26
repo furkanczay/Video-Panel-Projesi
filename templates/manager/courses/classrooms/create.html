@@ -1,0 +1,19 @@
+{% extends 'manager/alt_base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block js_files %}
+    <script src="{% static 'manager/js/permissions-select.js' %}"></script>
+{% endblock %}
+{% block title %}
+    Sınıf Ekle
+{% endblock %}
+{% block page_header %}
+    Sınıf Ekle
+{% endblock %}
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Sınıfı Kaydet</button>
+    </form>
+{% endblock %}
