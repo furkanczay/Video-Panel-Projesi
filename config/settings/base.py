@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     # THIRD-PARTY
     'crispy_forms',
     'crispy_bootstrap5',
+    'django_bunny_storage'
 ]
 
 # CRISPY FORMS OPTION
@@ -71,7 +72,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -103,6 +104,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# BUNNY CDN STORAGE OPTION
+
+DEFAULT_FILE_STORAGE = 'apps.core.storage.BunnyCDNStorage'
+MEDIA_URL = 'https://academyprojectvideos.b-cdn.net/'  # The Pull Zone hostname.
+BUNNY_USERNAME = 'academy-project'
+
+BUNNY_PASSWORD = '60663e44-715a-4305-999711d51dd8-2ccc-4ec1'
+BUNNY_REGION = 'de'
 
 # LANGUAGES OPTION
 LANGUAGE_CODE = 'tr-TR'
@@ -124,7 +133,6 @@ DATETIME_INPUT_FORMATS = [
     '%d/%m/%Y %H:%M:%S'
 ]
 
-
 # STATIC FILES OPTION
 STATIC_URL = 'assets/static/'
 
@@ -135,8 +143,8 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets/static_files/')
 
 # MEDIA FILES OPTION
-MEDIA_ROOT = os.path.join(BASE_DIR, 'assets/media/')
-MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'assets/media/')
+# MEDIA_URL = '/media/'
 
 
 # SMTP EMAIL OPTION
@@ -146,7 +154,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
-
 
 # WEBHOOK OPTION
 WEBHOOK_URL = env('WEBHOOK_URL')

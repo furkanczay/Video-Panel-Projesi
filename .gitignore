@@ -4,3 +4,4 @@ media
 __pycache__
 .idea
 .vscode
+static_files
