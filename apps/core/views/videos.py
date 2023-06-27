@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from apps.core.models import Videos, VideoComments
 from django.contrib import messages
 from apps.core.forms.videos_forms import VideoFilterForm
+from django.contrib.auth.decorators import login_required
 
 
+@login_required()
 def videos_list(request):
     form = VideoFilterForm(request.GET)
     if form.is_valid():
@@ -28,6 +30,7 @@ def videos_list(request):
     })
 
 
+@login_required()
 def video_detail(request, pk):
     video = get_object_or_404(Videos, pk=pk)
     comments = video.comments.all().order_by('-id')
@@ -39,6 +42,7 @@ def video_detail(request, pk):
     })
 
 
+@login_required()
 def video_comment_create(request):
     if request.method == 'POST':
         # Formdan gelen verileri al
@@ -58,6 +62,7 @@ def video_comment_create(request):
         return redirect('video_detail', pk=video_id)
 
 
+@login_required()
 def video_comment_update(request, pk):
     video_comment = get_object_or_404(VideoComments, pk=pk)
     if request.method == 'POST':
@@ -69,6 +74,7 @@ def video_comment_update(request, pk):
             return redirect('video_detail', pk=video_comment.video.pk)
 
 
+@login_required()
 def video_comment_delete(request, pk):
     video_comment = get_object_or_404(VideoComments, pk=pk)
     if video_comment.author == request.user:

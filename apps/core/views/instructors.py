@@ -16,6 +16,7 @@ def instructor_panel(request):
     })
 
 
+@login_required()
 @group_required('Eğitmen')
 def video_upload(request):
     if request.method == 'POST':

@@ -4,7 +4,8 @@ from apps.core.utils import send_otp
 from apps.core.models import Users
 from django.conf import settings
 from django.core.mail import send_mail
-from django.contrib.auth import logout, login
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from datetime import datetime
 import pyotp
@@ -57,6 +58,7 @@ def login_validate(request):
     return render(request, 'user/users/login_validate.html', context={})
 
 
+@login_required()
 # PROFILE VIEWS
 def profile(request):
     user = request.user
