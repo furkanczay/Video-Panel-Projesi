@@ -155,7 +155,7 @@ class Videos(AbstractDatesModel):
     classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE, related_name='videos', default=1,
                                   verbose_name=_('Sınıf'))
     instructor = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='instructor_videos', default=1,
-                                   verbose_name=_('Eğitmen'))
+                                   verbose_name=_('Eğitmen'), limit_choices_to={'groups__name': 'Eğitmen'})
 
     class Meta:
         db_table = 'videos'
