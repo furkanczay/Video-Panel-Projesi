@@ -42,7 +42,7 @@ AUTH_USER_MODEL = 'core.Users'
 
 # AUTHENTICATION BACKENDS OPTION
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
+    'config.backends.PasswordlessAuthBackend',
 ]
 
 # LOGIN/LOGOUT URLS OPTION
@@ -62,7 +62,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'apps.core.middlewares.LoginRequiredMiddleware',
 ]
 
 # ROOT URLCONFIGURATION OPTION
@@ -139,6 +138,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets/static_files/')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'assets/media/')
 MEDIA_URL = '/media/'
 
+
+# SMTP EMAIL OPTION
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'furkanczay@gmail.com'
+EMAIL_HOST_PASSWORD = 'csogyfrtpplygurl'
+EMAIL_USE_TLS = True
 
 # DEFAULT PRIMARY KEY OPTION
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

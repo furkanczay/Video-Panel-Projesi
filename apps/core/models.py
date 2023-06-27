@@ -34,6 +34,7 @@ class Users(AbstractBaseUser, PermissionsMixin, AbstractDatesModel):
     student_number = models.CharField(_('Öğrenci Numarası'), max_length=20, unique=True, null=True, blank=True)
     username = models.CharField(_('Kullanıcı Adı'), max_length=100, unique=True, null=True, blank=True)
     email = models.EmailField(_('Eposta Adresi'), max_length=150, unique=True)
+    password = None
     first_name = models.CharField(_('Adı'), max_length=120)
     last_name = models.CharField(_('Soyadı'), max_length=120)
     gender = models.CharField(_('Cinsiyet'), max_length=6, choices=GENDERS, null=True, blank=True)

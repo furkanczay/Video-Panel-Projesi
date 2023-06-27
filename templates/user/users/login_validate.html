@@ -4,7 +4,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="app horizontal-menu app-auth-sign-in align-content-stretch d-flex flex-wrap justify-content-end">
-        <div style="background-size: 60%; background: url({% static 'user/images/backgrounds/sign-in.svg' %}">
+        <div style="background-size: 60%; background: {% static 'user/images/backgrounds/sign-in.svg' %}">
 
         </div>
         <div class="app-auth-container">
@@ -16,12 +16,12 @@
             <form method="POST">
                 {% csrf_token %}
                 <div class="auth-credentials m-b-xxl">
-                    <label for="email">Eposta Adresiniz</label>
-                    <input type="email" name="email" id="email" class="form-control">
+                    <label for="otp">{% trans 'Tek kullanımlık şifreniz:' %}:</label>
+                    <input type="text" name="otp" id="otp" class="form-control">
                 </div>
 
                 <div class="auth-submit">
-                    <button type="submit" class="btn btn-primary">{% trans 'Tek Kullanımlık Kod Gönder' %}</button>
+                    <button type="submit" class="btn btn-primary">{% trans 'Giriş Yap' %}</button>
                 </div>
             </form>
 {#            <div class="divider"></div>#}
