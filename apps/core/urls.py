@@ -11,7 +11,6 @@ urlpatterns = [
         path('login-validate/', users.login_validate, name='login_validate'),
         path('logout/', auth_views.LogoutView.as_view(), name='logout'),
         path('profile/', users.profile, name='profile'),
-        path('issues/', main.issues, name='issues'),
         # INSTRUCTOR URLS
         path('instructor-panel/', include([
             path('', instructors.instructor_panel, name='instructor_panel'),

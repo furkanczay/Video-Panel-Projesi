@@ -77,35 +77,6 @@ class Users(AbstractBaseUser, PermissionsMixin, AbstractDatesModel):
         return self.first_name
 
 
-# ISSUES MODELS
-class IssueCategories(AbstractDatesModel):
-    name = models.CharField(_('Kategori Adı'), max_length=120)
-
-    class Meta:
-        db_table = 'issue_categories'
-        verbose_name = _('Sorun Kategorisi')
-        verbose_name_plural = _('Sorun Kategorileri')
-
-    def __str__(self):
-        return self.name
-
-
-class Issues(AbstractDatesModel):
-    subject = models.CharField(_('Konu'), max_length=255)
-    category = models.ForeignKey(IssueCategories, on_delete=models.CASCADE, related_name='issues',
-                                 verbose_name=_('Kategori'))
-    content = models.TextField(_('İçerik'))
-    is_solved = models.BooleanField(_('Çözüldü mü?'), default=False)
-
-    class Meta:
-        db_table = 'issues'
-        verbose_name = _('Sorun')
-        verbose_name_plural = _('Sorunlar')
-
-    def __str__(self):
-        return self.subject
-
-
 class CourseCategories(AbstractDatesModel):
     name = models.CharField(_('İsim'), max_length=120)
 
