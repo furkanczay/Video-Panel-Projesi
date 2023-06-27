@@ -81,3 +81,6 @@ def video_comment_delete(request, pk):
         video_comment.delete()
         messages.success(request, 'Yorum başarıyla silindi')
         return redirect('video_detail', pk=video_comment.video.pk)
+    else:
+        messages.error(request, 'Başkasının yorumunu silemezsiniz')
+        return redirect('video_detail', pk=video_comment.video.pk)
