@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from apps.core.decorators import group_required
 from apps.core.forms.instructor_forms import VideoUpload
 from django.contrib import messages
-from apps.core.models import Classroom
 
 
 @login_required()

@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     # THIRD-PARTY
     'crispy_forms',
     'crispy_bootstrap5',
-    'django_bunny_storage'
+    'django_bunny_storage',
 ]
 
 # CRISPY FORMS OPTION
