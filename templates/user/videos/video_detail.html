@@ -112,7 +112,7 @@
                                     </div>
                                   </div>
                                 </div>
-                                <a href="{% url 'video_comment_delete' pk=comment.pk %}" class="btn btn-danger">Sil</a>
+                                <a href="{% url 'video_comment_delete' pk=comment.pk %}" onclick="return confirm('Silme işlemini onaylıyor musunuz?')" class="btn btn-danger">Sil</a>
                             </div>
                         {% endif %}
                     </div>
