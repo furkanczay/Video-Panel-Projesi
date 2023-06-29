@@ -9,7 +9,7 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-body">
-                        {{ favorite.video.title }} <a href="{% url 'favorite_video' pk=favorite.video.pk %}" onclick="return confirm('Kaldırma işlemini onaylıyor musunuz?')" class="btn btn-danger">Favorilerden Kaldır</a>
+                        <a href="{% url 'video_detail' pk=favorite.video.pk %}">{{ favorite.video.title }}</a> <a href="{% url 'favorite_video' pk=favorite.video.pk %}" onclick="return confirm('Kaldırma işlemini onaylıyor musunuz?')" class="btn btn-danger">Favorilerden Kaldır</a>
                     </div>
                 </div>
             </div>
