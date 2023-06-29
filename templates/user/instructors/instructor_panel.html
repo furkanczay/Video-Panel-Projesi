@@ -35,6 +35,8 @@
                                     </a>
                                     <span class="widget-list-item-description-subtitle">
                                         {{ video.created_on }}
+                                        <a href="{% url 'video_edit' pk=video.pk %}" class="btn btn-info"><i class="ti ti-pencil"></i></a>
+                                        <a href="{% url 'video_delete' pk=video.pk %}" onclick="return confirm('Silme işlemini onaylıyor musunuz?')" class="btn btn-danger"><i class="ti ti-trash"></i></a>
                                     </span>
                                 </span>
                             </li>

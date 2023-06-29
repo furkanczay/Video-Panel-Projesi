@@ -15,6 +15,8 @@ urlpatterns = [
         path('instructor-panel/', include([
             path('', instructors.instructor_panel, name='instructor_panel'),
             path('video-upload/', instructors.video_upload, name='video_upload'),
+            path('video-edit/<int:pk>/', instructors.video_edit, name='video_edit'),
+            path('video-delete/<int:pk>/', instructors.video_delete, name='video_delete'),
         ])),
         # VIDEOS URLS
         path('videos/', include([

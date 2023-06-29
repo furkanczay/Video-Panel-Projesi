@@ -23,6 +23,12 @@
                   <source src="{{ video.video_file.url }}" type="video/mp4">
                 Your browser does not support the video tag.
                 </video>
+                {% if video.instructor == request.user %}
+                    <div class="d-flex flex-row gap-2 mt-3">
+                        <a href="{% url 'video_edit' pk=video.pk %}" class="btn btn-info float-start">Düzenle</a>
+                        <a href="{% url 'video_delete' pk=video.pk %}" onclick="return confirm('Silme işlemini onaylıyor musunuz?')" class="btn btn-danger float-start">Sil</a>
+                    </div>
+                {% endif %}
             </div>
             <div class="card-footer">
                 {{ video.description }}
