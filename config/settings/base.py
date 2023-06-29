@@ -44,6 +44,7 @@ AUTH_USER_MODEL = 'core.Users'
 # AUTHENTICATION BACKENDS OPTION
 AUTHENTICATION_BACKENDS = [
     'config.backends.PasswordlessAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 # LOGIN/LOGOUT URLS OPTION

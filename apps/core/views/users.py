@@ -12,6 +12,8 @@ import pyotp
 
 
 def login_page(request):
+    if request.user.is_authenticated:
+        return redirect('homepage')
     if request.method == 'POST':
         email = request.POST['email']
         user = PasswordlessAuthBackend.authenticate(request, email=email)
@@ -29,6 +31,8 @@ def login_page(request):
 
 
 def login_validate(request):
+    if request.user.is_authenticated:
+        return redirect('homepage')
     if request.method == 'POST':
         otp = request.POST['otp'].strip()
         email = request.session['email']
@@ -43,10 +47,11 @@ def login_validate(request):
                 totp = pyotp.TOTP(otp_secret_key, interval=300)
                 if totp.verify(otp):
                     user = get_object_or_404(Users, email=email)
-                    login(request, user)
-
-                    del request.session['otp_secret_key']
-                    del request.session['otp_valid_date']
+                    login(request, user, backend='config.backends.PasswordlessAuthBackend')
+                    if request.session['otp_secret_key']:
+                        del request.session['otp_secret_key']
+                    if request.session['otp_valid_date']:
+                        del request.session['otp_valid_date']
 
                     return redirect('homepage')
                 else:
