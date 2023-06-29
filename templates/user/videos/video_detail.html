@@ -23,12 +23,19 @@
                   <source src="{{ video.video_file.url }}" type="video/mp4">
                 Your browser does not support the video tag.
                 </video>
-                {% if video.instructor == request.user %}
+
                     <div class="d-flex flex-row gap-2 mt-3">
+                        {% if is_video_favorite %}
+                            <a href="{% url 'favorite_video' pk=video.pk %}" class="btn btn-danger float-start">Favorilerden Kaldır</a>
+                        {% else %}
+                            <a href="{% url 'favorite_video' pk=video.pk %}" class="btn btn-primary float-start">Favorilere Ekle</a>
+                        {% endif %}
+                        {% if video.instructor == request.user %}
                         <a href="{% url 'video_edit' pk=video.pk %}" class="btn btn-info float-start">Düzenle</a>
                         <a href="{% url 'video_delete' pk=video.pk %}" onclick="return confirm('Silme işlemini onaylıyor musunuz?')" class="btn btn-danger float-start">Sil</a>
+                        {% endif %}
                     </div>
-                {% endif %}
+
             </div>
             <div class="card-footer">
                 {{ video.description }}

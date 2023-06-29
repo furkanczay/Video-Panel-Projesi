@@ -10,6 +10,7 @@ from apps.core.decorators import anonymous_required
 from django.contrib import messages
 from datetime import datetime
 from apps.core.forms.users import UserUpdateForm
+from apps.core.models import Videos, VideoFavorites
 import pyotp
 
 
@@ -86,4 +87,25 @@ def profile_update(request):
     return render(request, 'user/users/profile_edit.html', {
         'user': user,
         'form': form
+    })
+
+
+@login_required()
+def favorite_video(request, pk):
+    video = get_object_or_404(Videos, pk=pk)
+    user = request.user
+    if VideoFavorites.objects.filter(video=video, user=user).exists():
+        VideoFavorites.objects.filter(video=video, user=user).delete()
+        messages.success(request, 'Video favorilerden kaldırıldı')
+    else:
+        VideoFavorites.objects.create(video=video, user=user)
+        messages.success(request, 'Video favorilere eklendi')
+    return redirect('video_detail', pk=pk)
+
+
+@login_required()
+def favorite_videos(request):
+    user = request.user
+    return render(request, 'user/users/favorite_videos.html', {
+        'user': user
     })

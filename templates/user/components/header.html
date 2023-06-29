@@ -124,20 +124,18 @@
                                         </div>
                                     </a>
                                 {% endif %}
-                                {% if request.user|has_group:'Öğrenci' %}
-                                    <a href="#">
-                                        <div class="notifications-dropdown-item align-items-center">
-                                            <div class="notifications-dropdown-item-image">
-                                                <span class="notifications-badge bg-danger text-white">
-                                                    <i class="material-icons-outlined">bolt</i>
-                                                </span>
-                                            </div>
-                                            <div class="notifications-dropdown-item-text">
-                                                <p class="bold-notifications-text">Öğrenci Paneli</p>
-                                            </div>
+                                <a href="{% url 'favorite_videos' %}">
+                                    <div class="notifications-dropdown-item align-items-center">
+                                        <div class="notifications-dropdown-item-image">
+                                            <span class="notifications-badge bg-danger text-white">
+                                                <i class="material-icons-outlined">bolt</i>
+                                            </span>
                                         </div>
-                                    </a>
-                                {% endif %}
+                                        <div class="notifications-dropdown-item-text">
+                                            <p class="bold-notifications-text">Favori Videolarım</p>
+                                        </div>
+                                    </div>
+                                </a>
                                 <a href="{% url 'profile' %}">
                                     <div class="notifications-dropdown-item align-items-center">
                                         <div class="notifications-dropdown-item-image">

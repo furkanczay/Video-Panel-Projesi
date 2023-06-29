@@ -41,10 +41,12 @@ def video_detail(request, pk):
     video = get_object_or_404(Videos, pk=pk)
     comments = video.comments.all().order_by('-id')
     all_videos = video.classroom.videos.all().order_by('-id')
+    is_video_favorite = request.user.video_favorites.filter(video=video).exists()
     return render(request, 'user/videos/video_detail.html', {
         'video': video,
         'comments': comments,
-        'all_videos': all_videos
+        'all_videos': all_videos,
+        'is_video_favorite': is_video_favorite,
     })
 
 

@@ -148,3 +148,16 @@ class VideoComments(AbstractDatesModel):
 
     def __str__(self):
         return self.author.get_full_name()
+
+
+class VideoFavorites(AbstractDatesModel):
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='video_favorites', verbose_name=_('Kullanıcı'))
+    video = models.ForeignKey(Videos, on_delete=models.CASCADE, related_name='favorites', verbose_name=_('Video'))
+
+    class Meta:
+        db_table = 'video_favorites'
+        verbose_name = _('Video Favorisi')
+        verbose_name_plural = _('Video Favorileri')
+
+    def __str__(self):
+        return self.user.get_full_name()
