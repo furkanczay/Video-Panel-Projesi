@@ -6,15 +6,15 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from apps.core.decorators import anonymous_required
 from django.contrib import messages
 from datetime import datetime
 from apps.core.forms.users import UserUpdateForm
 import pyotp
 
 
+@anonymous_required()
 def login_page(request):
-    if request.user.is_authenticated:
-        return redirect('homepage')
     if request.method == 'POST':
         email = request.POST['email']
         user = PasswordlessAuthBackend.authenticate(request, email=email)
@@ -31,9 +31,8 @@ def login_page(request):
     return render(request, 'user/users/login.html', {})
 
 
+@anonymous_required()
 def login_validate(request):
-    if request.user.is_authenticated:
-        return redirect('homepage')
     if request.method == 'POST':
         otp = request.POST['otp'].strip()
         email = request.session['email']
