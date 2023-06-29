@@ -8,6 +8,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from datetime import datetime
+from apps.core.forms.users import UserUpdateForm
 import pyotp
 
 
@@ -69,4 +70,21 @@ def profile(request):
     user = request.user
     return render(request, 'user/users/profile.html', {
         'user': user
+    })
+
+
+@login_required()
+def profile_update(request):
+    user = request.user
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            user.save()
+            messages.success(request, 'Profil bilgileriniz güncellendi')
+            return redirect('profile')
+    else:
+        form = UserUpdateForm(instance=user)
+    return render(request, 'user/users/profile_edit.html', {
+        'user': user,
+        'form': form
     })

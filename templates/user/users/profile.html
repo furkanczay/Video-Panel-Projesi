@@ -3,5 +3,14 @@
     Profilim
 {% endblock %}
 {% block content %}
-    Profilim
+    <div class="h2">Profilim</div>
+    <div class="row">
+        <div class="col-6">
+            Adı: {{ user.first_name }}
+            Soyadı: {{ user.last_name }}
+            E-posta: {{ user.email }}
+            Rol: {{ user.groups.first.name }}
+            <a href="{% url 'profile_update' %}" class="btn btn-info">Profili Düzenle</a>
+        </div>
+    </div>
 {% endblock %}o %}
