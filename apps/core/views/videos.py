@@ -3,18 +3,24 @@ from apps.core.models import Videos, VideoComments
 from django.contrib import messages
 from apps.core.forms.videos_forms import VideoFilterForm
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 @login_required()
 def videos_list(request):
+    paginator = Paginator(Videos.objects.all().order_by('-id'), 10)
+    page_number = request.GET.get('page')
     form = VideoFilterForm(request.GET)
     if form.is_valid():
+        title = form.cleaned_data.get('title')
         course = form.cleaned_data.get('course')
         instructor = form.cleaned_data.get('instructor')
         classroom = form.cleaned_data.get('classroom')
 
         videos = Videos.objects.all().order_by('-id')
 
+        if title:
+            videos = videos.filter(title__icontains=title)
         if course:
             videos = videos.filter(classroom__course=course)
         if instructor:
@@ -25,8 +31,8 @@ def videos_list(request):
     else:
         videos = Videos.objects.all().order_by('-id')
     return render(request, 'user/videos/list.html', {
-        'videos': videos,
-        'form': form
+        'videos': paginator.get_page(page_number),
+        'form': form,
     })
 
 

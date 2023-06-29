@@ -1,13 +1,11 @@
 {% load site_settings %}
 {% get_general_settings as general_settings %}
-<div class="container">
+<div class="container mt-3">
     <div class="card">
         <div class="card-body">
-            <span class="d-flex align-center gap-4">
+            <span>
                 2023
-                <span class="material-icons-outlined">
-                    copyright
-                </span>
+                <i class="ti ti-copyright"></i>
                 {{ general_settings.site_copyright }} | {{ general_settings.site_version }}
             </span>
         </div>

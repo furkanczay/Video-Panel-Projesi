@@ -47,6 +47,29 @@
                 {% empty %}
                     <div class="alert alert-warning">Hiç video bulunamadı :(</div>
                 {% endfor %}
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        {% if videos.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ videos.previous_page_number }}" tabindex="-1">Önceki</a>
+                            </li>
+                        {% endif %}
+                        {% for i in videos.paginator.page_range %}
+                            {% if videos.number == i %}
+                                <li class="page-item active" aria-current="page">
+                                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if videos.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ videos.next_page_number }}">Sonraki</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
