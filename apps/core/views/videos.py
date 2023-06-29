@@ -8,7 +8,8 @@ from django.core.paginator import Paginator
 
 @login_required()
 def videos_list(request):
-    paginator = Paginator(Videos.objects.all().order_by('-id'), 10)
+    videos = Videos.objects.all().order_by('-id')
+    paginator = Paginator(videos, 8)
     page_number = request.GET.get('page')
     form = VideoFilterForm(request.GET)
     if form.is_valid():
@@ -17,19 +18,18 @@ def videos_list(request):
         instructor = form.cleaned_data.get('instructor')
         classroom = form.cleaned_data.get('classroom')
 
-        videos = Videos.objects.all().order_by('-id')
-
         if title:
             videos = videos.filter(title__icontains=title)
+            paginator = Paginator(videos, 8)
         if course:
             videos = videos.filter(classroom__course=course)
+            paginator = Paginator(videos, 8)
         if instructor:
             videos = videos.filter(instructor=instructor)
+            paginator = Paginator(videos, 8)
         if classroom:
             videos = videos.filter(classroom=classroom)
-
-    else:
-        videos = Videos.objects.all().order_by('-id')
+            paginator = Paginator(videos, 8)
     return render(request, 'user/videos/list.html', {
         'videos': paginator.get_page(page_number),
         'form': form,
