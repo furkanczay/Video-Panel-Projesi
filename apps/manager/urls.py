@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import main, students, instructors, groups, courses, videos
+from .views import main, students, instructors, staffs, groups, courses, videos
 
 urlpatterns = [
     path('', include([
@@ -20,6 +20,14 @@ urlpatterns = [
             path('update/<int:pk>/', instructors.instructor_update, name='admin_instructors_update'),
             path('delete/<int:pk>/', instructors.instructor_delete, name='admin_instructors_delete'),
             path('<int:pk>/password/', main.user_update_password, name='admin_instructors_update_password'),
+        ])),
+        # STAFFS URLS
+        path('staffs/', include([
+            path('', staffs.staffs_page, name='admin_staffs_page'),
+            path('create/', staffs.staff_create, name='admin_staffs_create'),
+            path('update/<int:pk>/', staffs.staff_update, name='admin_staffs_update'),
+            path('delete/<int:pk>/', staffs.staff_delete, name='admin_staffs_delete'),
+            path('<int:pk>/password/', main.user_update_password, name='admin_staffs_update_password'),
         ])),
         # GROUPS URLS
         path('groups/', include([
