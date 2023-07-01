@@ -1,13 +1,12 @@
 from django.contrib import messages
-from django.contrib.admin.views.decorators import staff_member_required
+from apps.manager.decorators import staff_login_required
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from apps.core.models import Videos
 from apps.manager.forms.videos import VideoForm
 
 
-@login_required()
-@staff_member_required()
+@staff_login_required
 def videos_page(request):
     videos = Videos.objects.all()
     return render(request, 'manager/videos/list.html', {
@@ -15,8 +14,7 @@ def videos_page(request):
     })
 
 
-@login_required()
-@staff_member_required()
+@staff_login_required
 def video_create(request):
     if request.method == 'POST':
         form = VideoForm(request.POST, request.FILES)
@@ -31,8 +29,7 @@ def video_create(request):
     })
 
 
-@login_required()
-@staff_member_required()
+@staff_login_required
 def video_update(request, pk):
     video = get_object_or_404(Videos, pk=pk)
     if request.method == 'POST':
@@ -48,8 +45,7 @@ def video_update(request, pk):
     })
 
 
-@login_required()
-@staff_member_required()
+@staff_login_required
 def video_delete(request, pk):
     video = get_object_or_404(Videos, pk=pk)
     video.delete()

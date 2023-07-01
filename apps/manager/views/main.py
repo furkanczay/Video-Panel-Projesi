@@ -1,4 +1,4 @@
-from django.contrib.admin.views.decorators import staff_member_required
+from apps.manager.decorators import staff_login_required
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from apps.manager.models import GeneralSettings
@@ -8,12 +8,12 @@ from apps.core.models import Users
 from django.contrib.auth.forms import AdminPasswordChangeForm
 
 
-@staff_member_required()
+@staff_login_required
 def dashboard(request):
     return render(request, 'manager/main/dashboard.html', {})
 
 
-@staff_member_required()
+@staff_login_required
 def general_settings(request):
     general_settings_objects = GeneralSettings.objects.first()
     if request.method == 'POST':
@@ -28,8 +28,7 @@ def general_settings(request):
     })
 
 
-@login_required()
-@staff_member_required()
+@staff_login_required
 def user_update_password(request, pk):
     user = get_object_or_404(Users, pk=pk)
     if request.method == 'POST':

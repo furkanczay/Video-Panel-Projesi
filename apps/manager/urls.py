@@ -1,9 +1,11 @@
 from django.urls import path, include
-from .views import main, students, instructors, staffs, groups, courses, videos
+from .views import main, students, instructors, staffs, groups, courses, videos, auth
 
 urlpatterns = [
     path('', include([
         path('', main.dashboard, name='admin_dashboard'),
+        path('login/', auth.admin_login, name='admin_login'),
+        path('logout/', auth.admin_logout, name='admin_logout'),
         path('general-settings/', main.general_settings, name='admin_general_settings'),
         # STUDENTS URLS
         path('students/', include([

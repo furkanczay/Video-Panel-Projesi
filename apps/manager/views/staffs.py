@@ -2,13 +2,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import Group
 from django.contrib import messages
-from django.contrib.admin.views.decorators import staff_member_required
+from apps.manager.decorators import staff_login_required
 from apps.core.models import Users
 from apps.manager.forms.staffs import *
 
 
-@login_required()
-@staff_member_required()
+@staff_login_required
 def staffs_page(request):
     staffs = Users.objects.filter(groups__name='Personel')
     return render(request, 'manager/staffs/list.html', context={
@@ -16,8 +15,7 @@ def staffs_page(request):
     })
 
 
-@login_required()
-@staff_member_required()
+@staff_login_required
 def staff_create(request):
     if request.method == 'POST':
         form = StaffCreateForm(request.POST, request.FILES)
@@ -36,8 +34,7 @@ def staff_create(request):
     })
 
 
-@login_required()
-@staff_member_required()
+@staff_login_required
 def staff_update(request, pk):
     staff = get_object_or_404(Users, pk=pk)
     if request.method == 'POST':
@@ -54,8 +51,7 @@ def staff_update(request, pk):
     })
 
 
-@login_required()
-@staff_member_required()
+@staff_login_required
 def staff_delete(request, pk):
     staff = get_object_or_404(Users, pk=pk).delete()
     if staff:

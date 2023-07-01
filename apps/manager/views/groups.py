@@ -2,12 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.admin import Group
 from django.contrib import messages
-from django.contrib.admin.views.decorators import staff_member_required
+from apps.manager.decorators import staff_login_required
 from apps.manager.forms.groups import *
 
 
-@login_required()
-@staff_member_required()
+@staff_login_required
 def groups_page(request):
     groups = Group.objects.all().order_by('-id')
     return render(request, 'manager/groups/list.html', context={
@@ -15,8 +14,7 @@ def groups_page(request):
     })
 
 
-@login_required()
-@staff_member_required()
+@staff_login_required
 def group_create(request):
     if request.method == 'POST':
         form = GroupCreateForm(request.POST, request.FILES)
@@ -31,8 +29,7 @@ def group_create(request):
     })
 
 
-@login_required()
-@staff_member_required()
+@staff_login_required
 def group_update(request, pk):
     group = get_object_or_404(Group, pk=pk)
     if request.method == 'POST':
@@ -49,8 +46,7 @@ def group_update(request, pk):
     })
 
 
-@login_required()
-@staff_member_required()
+@staff_login_required
 def group_delete(request, pk):
     group = get_object_or_404(Group, pk=pk)
     if group.name == 'Öğrenci' or group.name == 'Eğitmen' or group.name == 'Personel' or group.name == 'Yönetici':

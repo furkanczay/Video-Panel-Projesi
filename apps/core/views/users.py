@@ -18,7 +18,7 @@ import pyotp
 def login_page(request):
     if request.method == 'POST':
         email = request.POST['email']
-        user = PasswordlessAuthBackend.authenticate(request, email=email)
+        user = PasswordlessAuthBackend().authenticate(request, email=email)
         if user is not None:
             request.session['email'] = email
             subject = 'Giriş Onaylama Kodu'
