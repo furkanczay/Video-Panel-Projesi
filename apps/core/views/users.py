@@ -15,11 +15,14 @@ import pyotp
 
 
 @anonymous_required()
-def login_page(request):
+def first_login_page(request):
     if request.method == 'POST':
         email = request.POST['email']
         user = PasswordlessAuthBackend().authenticate(request, email=email)
         if user is not None:
+            if not user.force_password_change:
+                messages.error(request, 'Lütfen şifreniz ile giriş yapınız')
+                return redirect('login')
             request.session['email'] = email
             subject = 'Giriş Onaylama Kodu'
             message = ' Giriş yapmak için gerekli kod: ' + send_otp(request)
@@ -29,11 +32,11 @@ def login_page(request):
             return redirect('login_validate')
         else:
             messages.error(request, 'Bu eposta sistemde kayıtlı değil')
-    return render(request, 'user/users/login.html', {})
+    return render(request, 'user/users/first_login.html', {})
 
 
 @anonymous_required()
-def login_validate(request):
+def first_login_validate(request):
     if request.method == 'POST':
         otp = request.POST['otp'].strip()
         email = request.session['email']
@@ -61,7 +64,24 @@ def login_validate(request):
                 messages.error(request, 'Tek kullanımlık kod zaman aşımına uğradı')
         else:
             messages.error(request, 'Tek kullanımlık kodda bir sorun var')
-    return render(request, 'user/users/login_validate.html', context={})
+    return render(request, 'user/users/first_login_validate.html', context={})
+
+
+@login_required()
+def force_password_change(request):
+    if request.method == 'POST':
+        password = request.POST['password']
+        password2 = request.POST['password2']
+        if password == password2:
+            user = request.user
+            user.set_password(password)
+            user.force_password_change = False
+            user.save()
+            messages.success(request, 'Şifreniz başarıyla oluşturuldu')
+            return redirect('homepage')
+        else:
+            messages.error(request, 'Şifreler uyuşmuyor')
+    return render(request, 'user/users/force_password_change.html', {})
 
 
 @login_required()

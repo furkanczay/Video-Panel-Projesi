@@ -5,91 +5,85 @@
     {% trans 'Anasayfa' %}
 {% endblock %}
 {% block content %}
-    <div class="app-content">
-        <div class="content-wrapper">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-4">
-                        <div class="card widget widget-stats">
-                            <div class="card-body">
-                                <div class="widget-stats-container d-flex">
-                                    <div class="widget-stats-icon widget-stats-icon-primary">
-                                        <i class="material-icons-outlined">person</i>
-                                    </div>
-                                    <div class="widget-stats-content flex-fill">
-                                        <span class="widget-stats-title">Öğrenci Sayısı</span>
-                                        <span class="widget-stats-amount">{% students_count %}</span>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="card widget widget-stats">
+                <div class="card-body">
+                    <div class="widget-stats-container d-flex">
+                        <div class="widget-stats-icon widget-stats-icon-primary">
+                            <i class="material-icons-outlined">person</i>
+                        </div>
+                        <div class="widget-stats-content flex-fill">
+                            <span class="widget-stats-title">Öğrenci Sayısı</span>
+                            <span class="widget-stats-amount">{% students_count %}</span>
                         </div>
                     </div>
-                    <div class="col-xl-4">
-                        <div class="card widget widget-stats">
-                            <div class="card-body">
-                                <div class="widget-stats-container d-flex">
-                                    <div class="widget-stats-icon widget-stats-icon-warning">
-                                        <i class="material-icons-outlined">person</i>
-                                    </div>
-                                    <div class="widget-stats-content flex-fill">
-                                        <span class="widget-stats-title">Eğitmen Sayısı</span>
-                                        <span class="widget-stats-amount">{% instructors_count %}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4">
-                        <div class="card widget widget-stats">
-                            <div class="card-body">
-                                <div class="widget-stats-container d-flex">
-                                    <div class="widget-stats-icon widget-stats-icon-danger">
-                                        <i class="material-icons-outlined">play_circle</i>
-                                    </div>
-                                    <div class="widget-stats-content flex-fill">
-                                        <span class="widget-stats-title">Video Sayısı</span>
-                                        <span class="widget-stats-amount">{% videos_count %}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    {% for instructor in instructors %}
-                        <div class="col-xl-4">
-                            <div class="card widget widget-connection-request">
-                                <div class="card-header">
-                                    <h5 class="card-title">
-                                        {{ instructor.get_full_name }}
-                                    </h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="widget-connection-request-container d-flex">
-                                        <div class="widget-connection-request-avatar">
-                                            <div class="avatar avatar-xl m-r-xs">
-                                                <img src="{{ instructor.avatar.url }}" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="widget-connection-request-info flex-grow-1">
-                                            <span class="widget-connection-request-info-name">
-                                                Sınıf Sayısı: {{ instructor.instructor_classrooms.count }}
-                                            </span>
-                                            <span class="widget-connection-request-info-name">
-                                                Video Sayısı: {{ instructor.instructor_videos.count }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="widget-connection-request-actions d-flex">
-                                        <a href="{% url 'videos_list' %}?instructor={{ instructor.pk }}" class="btn btn-primary btn-style-light flex-grow-1 m-r-xxs"><i class="ti ti-video"></i>Videolar</a>
-{#                                        <a href="#" class="btn btn-danger btn-style-light flex-grow-1 m-l-xxs"><i class="ti ti-link"></i>Faydalı Linkler</a>#}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
                 </div>
             </div>
         </div>
+        <div class="col-xl-4">
+            <div class="card widget widget-stats">
+                <div class="card-body">
+                    <div class="widget-stats-container d-flex">
+                        <div class="widget-stats-icon widget-stats-icon-warning">
+                            <i class="material-icons-outlined">person</i>
+                        </div>
+                        <div class="widget-stats-content flex-fill">
+                            <span class="widget-stats-title">Eğitmen Sayısı</span>
+                            <span class="widget-stats-amount">{% instructors_count %}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card widget widget-stats">
+                <div class="card-body">
+                    <div class="widget-stats-container d-flex">
+                        <div class="widget-stats-icon widget-stats-icon-danger">
+                            <i class="material-icons-outlined">play_circle</i>
+                        </div>
+                        <div class="widget-stats-content flex-fill">
+                            <span class="widget-stats-title">Video Sayısı</span>
+                            <span class="widget-stats-amount">{% videos_count %}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        {% for instructor in instructors %}
+            <div class="col-xl-4">
+                <div class="card widget widget-connection-request">
+                    <div class="card-header">
+                        <h5 class="card-title">
+                            {{ instructor.get_full_name }}
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="widget-connection-request-container d-flex">
+                            <div class="widget-connection-request-avatar">
+                                <div class="avatar avatar-xl m-r-xs">
+                                    <img src="{{ instructor.avatar.url }}" alt="">
+                                </div>
+                            </div>
+                            <div class="widget-connection-request-info flex-grow-1">
+                                <span class="widget-connection-request-info-name">
+                                    Sınıf Sayısı: {{ instructor.instructor_classrooms.count }}
+                                </span>
+                                <span class="widget-connection-request-info-name">
+                                    Video Sayısı: {{ instructor.instructor_videos.count }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="widget-connection-request-actions d-flex">
+                            <a href="{% url 'videos_list' %}?instructor={{ instructor.pk }}" class="btn btn-primary btn-style-light flex-grow-1 m-r-xxs"><i class="ti ti-video"></i>Videolar</a>
+{#                                        <a href="#" class="btn btn-danger btn-style-light flex-grow-1 m-l-xxs"><i class="ti ti-link"></i>Faydalı Linkler</a>#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

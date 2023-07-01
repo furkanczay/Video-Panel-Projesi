@@ -10,7 +10,7 @@ class UsersAdmin(UserAdmin):
     ordering = ('email',)
     fieldsets = (
         (None, {'fields': ('email', 'password', 'first_name', 'last_name')}),
-        ('İzinler', {'fields': ('is_active', 'is_staff', 'is_superuser', 'user_permissions', 'groups')}),
+        ('İzinler', {'fields': ('is_active', 'is_staff', 'is_superuser', 'user_permissions', 'groups', 'force_password_change')}),
         ('Tarihler', {'fields': ('last_login',)}),
         ('Ekstra Profil Alanları', {'fields': ('gender', 'avatar', 'birth_date', 'country', 'bio',)}),
     )

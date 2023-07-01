@@ -46,6 +46,7 @@ class Users(AbstractBaseUser, PermissionsMixin, AbstractDatesModel):
     objects = UsersManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+    force_password_change = models.BooleanField(_('Şifre Değiştirme Gerekliliği'), default=True)
 
     class Meta:
         db_table = 'users'

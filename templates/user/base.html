@@ -45,6 +45,12 @@
                 <div class="app-content">
                     <div class="content-wrapper">
                         <div class="container">
+                            {% if request.user.force_password_change %}
+                                <div class="alert alert-warning">
+                                    Sistem tarafından oluşturulan şifrenizi değiştirmeniz gerekiyor, lütfen
+                                    <a href="{% url 'force_password_change' %}" class="link-dark">buraya tıklayarak</a> şifrenizi değiştiriniz
+                                </div>
+                            {% endif %}
                             {% block content %}{% endblock %}
                         </div>
                     </div>
