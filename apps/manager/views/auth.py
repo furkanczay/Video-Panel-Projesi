@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
-from config.backends import WithPasswordLogin
 from django.contrib import messages
 
 
