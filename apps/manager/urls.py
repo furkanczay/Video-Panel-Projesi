@@ -61,8 +61,8 @@ urlpatterns = [
         path('videos/', include([
             path('', videos.videos_page, name='admin_videos_page'),
             path('create/', videos.video_create, name='admin_videos_create'),
-            path('update/<int:pk>/', courses.classroom_update, name='admin_videos_update'),
-            path('delete/<int:pk>/', courses.classroom_delete, name='admin_videos_delete'),
+            path('update/<int:pk>/', videos.video_update, name='admin_videos_update'),
+            path('delete/<int:pk>/', videos.video_delete, name='admin_videos_delete'),
         ])),
     ]))
 ]
