@@ -3,21 +3,21 @@
     Profilim
 {% endblock %}
 {% block content %}
-    <div class="bg-white md:mx-auto rounded shadow-xl w-full md:w-1/2 overflow-hidden">
+    <div class="bg-white dark:bg-gray-800 md:mx-auto rounded shadow-xl w-full md:w-1/2 overflow-hidden">
   <div class="h-[140px] bg-gradient-to-r from-cyan-500 to-blue-500"></div>
   <div class="px-5 py-2 flex flex-col gap-3 pb-6">
     <div class="h-[90px] shadow-md w-20 rounded-full border-4 overflow-hidden -mt-14 border-white"><img src="{{ user.avatar.url }}" class="w-full h-full rounded-full object-center object-cover"></div>
     <div class="">
-      <h3 class="text-xl text-slate-900 relative font-bold leading-6">{{ user.get_full_name }}</h3>
-      <p class="text-sm text-gray-600">@{{user.username}}</p>
+      <h3 class="text-xl text-slate-900 relative dark:text-white font-bold leading-6">{{ user.get_full_name }}</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-100">@{{user.username}}</p>
     </div>
     <div class="flex gap-3 flex-wrap"><span class="rounded-sm bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-800">{{ user.groups.first }}</span></div>
     <div>
         <a href="{% url 'profile_update' %}" class="inline-flex w-auto cursor-pointer select-none appearance-none items-center justify-center space-x-1 rounded border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 transition hover:border-gray-300 active:bg-white hover:bg-gray-100 focus:border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300">Profili Düzenle</a>
 {#        <button type="button" class="inline-flex w-auto cursor-pointer select-none appearance-none items-center justify-center space-x-1 rounded border border-gray-200 bg-blue-700 px-3 py-2 text-sm font-medium text-white transition hover:border-blue-300 hover:bg-blue-600 active:bg-blue-700 focus:blue-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300">Add to projects</button></div>#}
-    <h4 class="text-md font-medium leading-3">Hakkımda</h4>
-    <p class="text-sm text-stone-500">{{ user.bio }}</p>
-    <h4 class="text-md font-medium leading-3">Experiences</h4>
+    <h4 class="text-md font-medium dark:text-white leading-3">Hakkımda</h4>
+    <p class="text-sm dark:text-gray-100 text-stone-500">{{ user.bio }}</p>
+    <h4 class="text-md dark:text-white font-medium leading-3">Yetenekler</h4>
     <div class="flex flex-col gap-3">
       <div class="flex items-center gap-3 px-2 py-3 bg-white rounded border w-full "><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="h-8 w-8 text-slate-500" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
           <path fill="none" d="M0 0h24v24H0z"></path>

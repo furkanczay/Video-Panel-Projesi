@@ -29,7 +29,7 @@ def first_login_page(request):
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [request.POST['email'], ]
             send_mail(subject, message, email_from, recipient_list)
-            return redirect('login_validate')
+            return redirect('first_login_validate')
         else:
             messages.error(request, 'Bu eposta sistemde kayıtlı değil')
     return render(request, 'user/users/first_login.html', {})

@@ -2,34 +2,68 @@
 {% load static %}
 {% load i18n %}
 {% load crispy_forms_tags %}
+{% block css_files %}
+    <style>
+        .otp-input-wrapper {
+  width: 240px;
+  text-align: left;
+  display: inline-block;
+}
+.otp-input-wrapper input {
+padding: 0;
+width: 264px;
+font-size: 22px;
+font-weight: 600;
+color: #3e3e3e;
+background-color: transparent;
+border: 0;
+margin-left: 2px;
+letter-spacing: 30px;
+font-family: sans-serif !important;
+}
+.otp-input-wrapper input:focus {
+  box-shadow: none;
+  outline: none;
+}
+.otp-input-wrapper svg {
+  position: relative;
+  display: block;
+  width: 240px;
+  height: 2px;
+}
+    </style>
+{% endblock %}
 {% block content %}
-    <div class="app horizontal-menu app-auth-sign-in align-content-stretch d-flex flex-wrap justify-content-end">
-        <div style="background-size: 60%; background: {% static 'user/images/backgrounds/sign-in.svg' %}">
-
-        </div>
-        <div class="app-auth-container">
-            <div class="logo">
-                <a>Neptune</a>
-            </div>
-{#            <p class="auth-description">Please sign-in to your account and continue to the dashboard.<br>Don't have an account? <a href="sign-up.html">Sign Up</a></p>#}
-
-            <form method="POST">
-                {% csrf_token %}
-                <div class="auth-credentials m-b-xxl">
-                    <label for="otp">{% trans 'Tek kullanımlık şifreniz:' %}:</label>
-                    <input type="text" name="otp" id="otp" class="form-control">
-                </div>
-
-                <div class="auth-submit">
-                    <button type="submit" class="btn btn-primary">{% trans 'Giriş Yap' %}</button>
-                </div>
-            </form>
-{#            <div class="divider"></div>#}
-{#            <div class="auth-alts">#}
-{#                <a href="#" class="auth-alts-google"></a>#}
-{#                <a href="#" class="auth-alts-facebook"></a>#}
-{#                <a href="#" class="auth-alts-twitter"></a>#}
-{#            </div>#}
-        </div>
-    </div>
+<section class="bg-gray-50 dark:bg-gray-900">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+          <img class="w-8 h-8 mr-2" src="{% static 'base/img/acunmedya_akademi_logo.png' %}" alt="logo">
+          Acunmedya Akademi
+      </a>
+      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                  {% trans 'Hesabınıza giriş yapın' %}
+              </h1>
+              <form id="otp" class="space-y-4 md:space-y-6" method="POST">
+                  {% csrf_token %}
+                  <div class="otp-input-wrapper">
+                      <label for="otp">Tek Kullanımlık Şifre:</label>
+                      <input class="mt-3" type="tel" name="otp" id="otp" maxlength="6" pattern="[0-9]*" autocomplete="off">
+                      <svg viewBox="0 0 240 1" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="0" y1="0" x2="240" y2="0" stroke="#3e3e3e" stroke-width="2" stroke-dasharray="20,22" />
+                      </svg>
+                  </div>
+                  <div class="flex items-center justify-between">
+                  </div>
+                  <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                      {% trans 'Giriş Yap' %}</button>
+                  <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                      Lütfen mailinize gelen tek kullanımlık şifreyi giriniz
+                  </p>
+              </form>
+          </div>
+      </div>
+  </div>
+</section>
 {% endblock %}

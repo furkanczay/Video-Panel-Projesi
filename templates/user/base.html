@@ -20,7 +20,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/neptune.png" />
 
 </head>
-<body>
+<body class="dark:bg-gray-800">
     {% block header %}{% endblock %}
     {% block navbar %}{% endblock %}
     {% if request.user.force_password_change %}
@@ -42,6 +42,7 @@
     </div>
     {% block footer %}{% endblock %}
     <script src="{% static 'user/js/flowbite.min.js' %}"></script>
+    <script src="{% static 'user/js/darklight.js' %}"></script>
     <script src="{% static 'user/js/jquery.min.js' %}"></script>
     <script src="{% static 'user/js/datepicker.min.js' %}"></script>
     <script src="{% static 'base/js/toastr.min.js' %}"></script>
