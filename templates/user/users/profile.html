@@ -3,14 +3,50 @@
     Profilim
 {% endblock %}
 {% block content %}
-    <div class="h2">Profilim</div>
-    <div class="row">
-        <div class="col-6">
-            Adı: {{ user.first_name }}
-            Soyadı: {{ user.last_name }}
-            E-posta: {{ user.email }}
-            Rol: {{ user.groups.first.name }}
-            <a href="{% url 'profile_update' %}" class="btn btn-info">Profili Düzenle</a>
-        </div>
+    <div class="bg-white md:mx-auto rounded shadow-xl w-full md:w-1/2 overflow-hidden">
+  <div class="h-[140px] bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+  <div class="px-5 py-2 flex flex-col gap-3 pb-6">
+    <div class="h-[90px] shadow-md w-20 rounded-full border-4 overflow-hidden -mt-14 border-white"><img src="{{ user.avatar.url }}" class="w-full h-full rounded-full object-center object-cover"></div>
+    <div class="">
+      <h3 class="text-xl text-slate-900 relative font-bold leading-6">{{ user.get_full_name }}</h3>
+      <p class="text-sm text-gray-600">@{{user.username}}</p>
     </div>
+    <div class="flex gap-3 flex-wrap"><span class="rounded-sm bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-800">{{ user.groups.first }}</span></div>
+    <div>
+        <a href="{% url 'profile_update' %}" class="inline-flex w-auto cursor-pointer select-none appearance-none items-center justify-center space-x-1 rounded border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 transition hover:border-gray-300 active:bg-white hover:bg-gray-100 focus:border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300">Profili Düzenle</a>
+{#        <button type="button" class="inline-flex w-auto cursor-pointer select-none appearance-none items-center justify-center space-x-1 rounded border border-gray-200 bg-blue-700 px-3 py-2 text-sm font-medium text-white transition hover:border-blue-300 hover:bg-blue-600 active:bg-blue-700 focus:blue-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300">Add to projects</button></div>#}
+    <h4 class="text-md font-medium leading-3">Hakkımda</h4>
+    <p class="text-sm text-stone-500">{{ user.bio }}</p>
+    <h4 class="text-md font-medium leading-3">Experiences</h4>
+    <div class="flex flex-col gap-3">
+      <div class="flex items-center gap-3 px-2 py-3 bg-white rounded border w-full "><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="h-8 w-8 text-slate-500" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+          <path fill="none" d="M0 0h24v24H0z"></path>
+          <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"></path>
+        </svg>
+        <div class="leading-3">
+          <p class=" text-sm font-bold text-slate-700">{{ user.groups.first }}</p><span class="text-xs text-slate-600">5 years</span>
+        </div>
+        <p class="text-sm text-slate-500 self-start ml-auto">As Ui Designer on Front Page</p>
+      </div>
+      <div class="flex items-center gap-3 px-2 py-3 bg-white rounded border w-full "><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="h-8 w-8 text-slate-500" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+          <path fill="none" d="M0 0h24v24H0z"></path>
+          <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"></path>
+        </svg>
+        <div class="leading-3">
+          <p class=" text-sm font-bold text-slate-700">Ui Designer</p><span class="text-xs text-slate-600">5 years</span>
+        </div>
+        <p class="text-sm text-slate-500 self-start ml-auto">As Ui Designer on Front Page</p>
+      </div>
+      <div class="flex items-center gap-3 px-2 py-3 bg-white rounded border w-full "><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="h-8 w-8 text-slate-500" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+          <path fill="none" d="M0 0h24v24H0z"></path>
+          <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"></path>
+        </svg>
+        <div class="leading-3">
+          <p class=" text-sm font-bold text-slate-700">Ui Designer</p><span class="text-xs text-slate-600">5 years</span>
+        </div>
+        <p class="text-sm text-slate-500 self-start ml-auto">As Ui Designer on Front Page</p>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}o %}

@@ -1,5 +1,5 @@
 {% extends 'user/alt_base.html' %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
 {% block title %}
     Profilim
 {% endblock %}
@@ -7,6 +7,6 @@
     <form method="POST">
         {% csrf_token %}
         {{ form|crispy }}
-        <button type="submit" class="btn btn-info">Profili Güncelle</button>
+        <button type="submit" class="bg-blue-300 py-2 px-4 hover:bg-blue-500">Profili Güncelle</button>
     </form>
 {% endblock %}

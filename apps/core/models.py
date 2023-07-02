@@ -103,9 +103,22 @@ class Courses(AbstractDatesModel):
         return self.name
 
 
+class Period(AbstractDatesModel):
+    name = models.CharField(_('İsim'), max_length=120)
+
+    class Meta:
+        db_table = 'periods'
+        verbose_name = _('Dönem')
+        verbose_name_plural = _('Dönemler')
+
+    def __str__(self):
+        return self.name
+
+
 class Classroom(AbstractDatesModel):
     name = models.CharField(_('İsim'), max_length=120)
     course = models.ForeignKey(Courses, on_delete=models.CASCADE, related_name='classrooms', verbose_name=_('Kurs'))
+    period = models.ForeignKey(Period, on_delete=models.SET_NULL, null=True, blank=True, verbose_name=_('Dönem'))
     instructor = models.ForeignKey(Users, on_delete=models.SET_NULL, related_name='instructor_classrooms', null=True,
                                    verbose_name=_('Eğitmen'), limit_choices_to={'groups__name': 'Eğitmen'})
 
@@ -115,7 +128,7 @@ class Classroom(AbstractDatesModel):
         verbose_name_plural = _('Sınıflar')
 
     def __str__(self):
-        return f'{self.course.name} {self.name}'
+        return f'{self.period} {self.course.name} {self.name}'
 
 
 class Videos(AbstractDatesModel):
@@ -152,7 +165,8 @@ class VideoComments(AbstractDatesModel):
 
 
 class VideoFavorites(AbstractDatesModel):
-    user = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='video_favorites', verbose_name=_('Kullanıcı'))
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='video_favorites',
+                             verbose_name=_('Kullanıcı'))
     video = models.ForeignKey(Videos, on_delete=models.CASCADE, related_name='favorites', verbose_name=_('Video'))
 
     class Meta:

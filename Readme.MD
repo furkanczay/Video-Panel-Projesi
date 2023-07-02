@@ -41,6 +41,10 @@ düzeltmek adına kullanmak istedim, ve ortaya bu proje çıktı! <br>
 ![SQLite]
 ![Jquery]
 
+### Kullanılan Temalar
+Önyüz: Neptune Theme <br>
+Admin: Tabler Theme
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 

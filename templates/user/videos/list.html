@@ -1,76 +1,79 @@
 {% extends 'user/alt_base.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
 {% block title %}
     Videolar
 {% endblock %}
 {% block content %}
-    <div class="row">
-        <div class="col-3">
-            <div class="card">
-                <div class="card-body">
-                    <h2>Filtrele</h2>
-                    <form method="GET" action="{% url 'videos_list' %}">
-                        {{ form|crispy }}
-                        <button type="submit" class="btn btn-info">Filtrele</button>
-                    </form>
-                </div>
-            </div>
+    <div class="container mx-auto">
+        <div class="text-center">
+           <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button" data-drawer-target="drawer-right-example" data-drawer-show="drawer-right-example" data-drawer-placement="right" aria-controls="drawer-right-example">
+           Filtrele
+           </button>
         </div>
-        <div class="col-9">
-            <div class="row">
+        <!-- drawer component -->
+        <div id="drawer-right-example" class="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-80 dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-right-label">
+            <form method="GET" action="{% url 'videos_list' %}">
+                {{ form|crispy }}
+                <button type="submit" class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Filtrele</button>
+            </form>
+        </div>
+            <div class="md:grid grid-cols-3 gap-2">
                 {% for video in videos %}
-                    <div class="col-6">
-                        <div class="card-header bg-secondary text-dark">
-                            <div class="row d-flex align-items-center">
-                                <div class="col d-flex align-items-center gap-3">
-                                    <img class="avatar avatar-xs avatar-rounded" src="{{ video.instructor.avatar.url }}" alt="">
-                                    {{ video.instructor }}
-                                </div>
-                                <div class="col float-end">
-                                    {{ video.created_on }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="{% static 'user/images/cards/card.png' %}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ video.title }}</h5>
-                                <p class="card-text">{{ video.description|truncatewords:50 }}</p>
-                                <a href="{% url 'video_detail' pk=video.pk %}" class="btn btn-primary">Videoyu izle</a>
-                            </div>
-                            <div class="card-footer">
-                                {{ video.classroom.course }} | {{ video.classroom }}
-                            </div>
-                        </div>
+                    <div class="max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ video.title }}</h5>
+                        </a>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ video.description|truncatewords:50 }}</p>
+                        <a href="{% url 'video_detail' pk=video.pk %}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Videoyu İzle
+                            <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        </a>
+                        <hr class="mt-3"/>
+                        <small>{{ video.classroom }}</small>
+                        <small>{{ video.instructor }}</small>
                     </div>
                 {% empty %}
-                    <div class="alert alert-warning">Hiç video bulunamadı :(</div>
+                    <div class="flex p-4 mb-4 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800" role="alert">
+                      <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                      <span class="sr-only">Info</span>
+                      <div>
+                        <span class="font-medium">Üzgünüm,</span> hiç video bulunamadı :(
+                      </div>
+                    </div>
                 {% endfor %}
-                <nav aria-label="...">
-                    <ul class="pagination">
-                        {% if videos.has_previous %}
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ videos.previous_page_number }}" tabindex="-1">Önceki</a>
-                            </li>
-                        {% endif %}
-                        {% for i in videos.paginator.page_range %}
-                            {% if videos.number == i %}
-                                <li class="page-item active" aria-current="page">
-                                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
-                                </li>
-                            {% else %}
-                                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                            {% endif %}
-                        {% endfor %}
-                        {% if videos.has_next %}
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ videos.next_page_number }}">Sonraki</a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </nav>
-            </div>
-        </div>
+           </div>
+        <nav aria-label="Page navigation example">
+          <ul class="inline-flex items-center -space-x-px pt-4">
+              {% if videos.has_previous %}
+                <li>
+                  <a href="?page={{ videos.previous_page_number }}" class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                    <span class="sr-only">Previous</span>
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                  </a>
+                </li>
+              {% endif %}
+              {% for i in videos.paginator.page_range %}
+                {% if videos.number == i %}
+                    <li>
+                      <a href="?page={{ i }}" aria-current="page" class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ i }}</a>
+                    </li>
+                {% else %}
+                    <li>
+                      <a href="?page={{ i }}" class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ i }}</a>
+                    </li>
+                {% endif %}
+              {% endfor %}
+              {% if videos.has_next %}
+                <li>
+                  <a href="?page={{ videos.next_page_number }}" class="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                    <span class="sr-only">Next</span>
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                  </a>
+                </li>
+              {% endif %}
+          </ul>
+        </nav>
     </div>
+
 {% endblock %}

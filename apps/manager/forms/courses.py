@@ -17,5 +17,5 @@ class CourseForm(ModelForm):
 class ClassroomForm(ModelForm):
     class Meta:
         model = Classroom
-        fields = ['name', 'course', 'instructor']
+        fields = ['name', 'course', 'period', 'instructor']
 
