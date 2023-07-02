@@ -116,7 +116,7 @@ def social_links(request):
         form = SocialLinksForm(request.POST)
         if form.is_valid():
             social_link = form.save(commit=False)
-            social_link.user_id = user.id
+            social_link.user = user
             social_link.save()
             messages.success(request, 'Sosyal link eklendi')
             return redirect('social_links')

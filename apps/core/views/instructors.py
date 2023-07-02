@@ -4,6 +4,8 @@ from apps.core.decorators import group_required
 from apps.core.forms.instructor_forms import VideoUpload
 from django.contrib import messages
 from apps.core.models import Users
+from django.conf import settings
+import requests
 
 
 @login_required()
@@ -62,7 +64,18 @@ def video_edit(request, pk):
 @login_required()
 @group_required('Eğitmen')
 def video_delete(request, pk):
-    video = request.user.instructor_videos.get(pk=pk)
-    video.delete()
-    messages.success(request, 'Video başarıyla silindi')
-    return redirect('instructor_panel')
+    request_video = request.user.instructor_videos.get(pk=pk)
+    url = "https://storage.bunnycdn.com/" + settings.BUNNY_USERNAME + "/" + request_video.video_file.name
+    url = url.replace("\\", "/")
+    print(url)
+    headers = {"AccessKey": settings.BUNNY_PASSWORD}
+    print(headers)
+    response = requests.delete(url, headers=headers)
+    if response.status_code == 200:
+        video = request.user.instructor_videos.get(pk=pk)
+        video.delete()
+        messages.success(request, 'Video başarıyla silindi')
+        return redirect('instructor_panel')
+    else:
+        messages.error(request, 'Video silinirken bir hata oluştu')
+        return redirect('instructor_panel')
