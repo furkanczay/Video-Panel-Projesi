@@ -77,6 +77,20 @@ class Users(AbstractBaseUser, PermissionsMixin, AbstractDatesModel):
         return self.first_name
 
 
+class UserSocialLinks(AbstractDatesModel):
+    title = models.CharField(_('Başlık'), max_length=120, null=True, blank=True)
+    link = models.URLField(_('Link'), null=True, blank=True)
+    user = models.ForeignKey(Users, related_name='social_links', on_delete=models.CASCADE, verbose_name=_('Üye'))
+
+    class Meta:
+        db_table = 'social_links'
+        verbose_name = _('Sosyal Link')
+        verbose_name_plural = _('Sosyal Linkler')
+
+    def __str__(self):
+        return self.title
+
+
 class CourseCategories(AbstractDatesModel):
     name = models.CharField(_('İsim'), max_length=120)
 

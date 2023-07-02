@@ -20,6 +20,7 @@ urlpatterns = [
         path('logout/', auth_views.LogoutView.as_view(), name='logout'),
         path('profile/', users.profile, name='profile'),
         path('profile/update/', users.profile_update, name='profile_update'),
+        path('social-links/', users.social_links, name='social_links'),
         path('favorite_video/<int:pk>/', users.favorite_video, name='favorite_video'),
         path('favorite-videos/', users.favorite_videos, name='favorite_videos'),
         # USER LIST URLS

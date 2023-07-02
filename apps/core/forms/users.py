@@ -1,5 +1,5 @@
 from django import forms
-from apps.core.models import Users
+from apps.core.models import Users, UserSocialLinks
 
 
 class UserUpdateForm(forms.ModelForm):
@@ -9,3 +9,9 @@ class UserUpdateForm(forms.ModelForm):
         widgets={
             'birth_date': forms.DateInput(attrs={'type': 'text', 'datepicker': 'datepicker'}),
         }
+
+
+class SocialLinksForm(forms.ModelForm):
+    class Meta:
+        model = UserSocialLinks
+        fields = ('title', 'link')

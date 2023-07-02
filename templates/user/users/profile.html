@@ -17,36 +17,22 @@
 {#        <button type="button" class="inline-flex w-auto cursor-pointer select-none appearance-none items-center justify-center space-x-1 rounded border border-gray-200 bg-blue-700 px-3 py-2 text-sm font-medium text-white transition hover:border-blue-300 hover:bg-blue-600 active:bg-blue-700 focus:blue-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300">Add to projects</button></div>#}
     <h4 class="text-md font-medium dark:text-white leading-3">Hakkımda</h4>
     <p class="text-sm dark:text-gray-100 text-stone-500">{{ user.bio }}</p>
-    <h4 class="text-md dark:text-white font-medium leading-3">Yetenekler</h4>
-    <div class="flex flex-col gap-3">
-      <div class="flex items-center gap-3 px-2 py-3 bg-white rounded border w-full "><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="h-8 w-8 text-slate-500" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-          <path fill="none" d="M0 0h24v24H0z"></path>
-          <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"></path>
-        </svg>
-        <div class="leading-3">
-          <p class=" text-sm font-bold text-slate-700">{{ user.groups.first }}</p><span class="text-xs text-slate-600">5 years</span>
-        </div>
-        <p class="text-sm text-slate-500 self-start ml-auto">As Ui Designer on Front Page</p>
-      </div>
-      <div class="flex items-center gap-3 px-2 py-3 bg-white rounded border w-full "><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="h-8 w-8 text-slate-500" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-          <path fill="none" d="M0 0h24v24H0z"></path>
-          <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"></path>
-        </svg>
-        <div class="leading-3">
-          <p class=" text-sm font-bold text-slate-700">Ui Designer</p><span class="text-xs text-slate-600">5 years</span>
-        </div>
-        <p class="text-sm text-slate-500 self-start ml-auto">As Ui Designer on Front Page</p>
-      </div>
-      <div class="flex items-center gap-3 px-2 py-3 bg-white rounded border w-full "><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="h-8 w-8 text-slate-500" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-          <path fill="none" d="M0 0h24v24H0z"></path>
-          <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"></path>
-        </svg>
-        <div class="leading-3">
-          <p class=" text-sm font-bold text-slate-700">Ui Designer</p><span class="text-xs text-slate-600">5 years</span>
-        </div>
-        <p class="text-sm text-slate-500 self-start ml-auto">As Ui Designer on Front Page</p>
-      </div>
+    <h4 class="text-md dark:text-white font-medium leading-3">Bağlantılar</h4>
+    <div class="flex flex-cols-4 gap-4">
+        {% for link in user.social_links.all %}
+            <a href="{{ link.link }}" class="flex items-center gap-3 px-2 py-3 bg-white rounded border w-full "><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="h-8 w-8 text-slate-500" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="none" d="M0 0h24v24H0z"></path>
+                  <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"></path>
+                </svg>
+                <div class="leading-3">
+                  <p class=" text-sm font-bold text-slate-700">{{ link.title }}</p><span class="text-xs text-slate-600">5 years</span>
+                </div>
+            </a>
+        {% empty %}
+            hiç bağlantı yok
+        {% endfor %}
     </div>
   </div>
+  </div>
 </div>
-{% endblock %}o %}
+{% endblock %}
