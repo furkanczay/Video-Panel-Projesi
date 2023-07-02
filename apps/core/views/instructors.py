@@ -67,9 +67,7 @@ def video_delete(request, pk):
     request_video = request.user.instructor_videos.get(pk=pk)
     url = "https://storage.bunnycdn.com/" + settings.BUNNY_USERNAME + "/" + request_video.video_file.name
     url = url.replace("\\", "/")
-    print(url)
     headers = {"AccessKey": settings.BUNNY_PASSWORD}
-    print(headers)
     response = requests.delete(url, headers=headers)
     if response.status_code == 200:
         video = request.user.instructor_videos.get(pk=pk)
