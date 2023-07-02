@@ -5,3 +5,5 @@ __pycache__
 .idea
 .vscode
 static_files
+ticket_module.sqlite3
+ticket_module.py

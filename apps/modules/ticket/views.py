@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from apps.modules.ticket.models import Ticket
 from django.contrib.auth.decorators import login_required
+from .forms.tickets import TicketForm
+from django.contrib import messages
 
 
 @login_required()
@@ -21,7 +23,18 @@ def ticket_detail(request, ticket_id):
 
 @login_required()
 def ticket_new(request):
-    return render(request, 'pages/ticket_new.html', {})
+    if request.method == 'POST':
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            ticket = form.save(commit=False)
+            ticket.user = request.user
+            ticket.save()
+            messages.success(request, 'Destek talebi başarıyla oluşturuldu.')
+    else:
+        form = TicketForm()
+    return render(request, 'pages/ticket_new.html', {
+        'form': form,
+    })
 
 
 @login_required()
