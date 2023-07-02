@@ -22,6 +22,10 @@ urlpatterns = [
         path('profile/update/', users.profile_update, name='profile_update'),
         path('favorite_video/<int:pk>/', users.favorite_video, name='favorite_video'),
         path('favorite-videos/', users.favorite_videos, name='favorite_videos'),
+        # USER LIST URLS
+        path('users/', include([
+            path('instructors/', instructors.instructor_list, name='instructors_list'),
+        ])),
         # INSTRUCTOR URLS
         path('instructor-panel/', include([
             path('', instructors.instructor_panel, name='instructor_panel'),
