@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Users, Issues, IssueCategories, Videos, VideoComments, Courses, Classroom
+from .models import Users, Videos, VideoComments, Courses, Classroom, Period
 
 
 @admin.register(Users)
@@ -10,7 +10,7 @@ class UsersAdmin(UserAdmin):
     ordering = ('email',)
     fieldsets = (
         (None, {'fields': ('email', 'password', 'first_name', 'last_name')}),
-        ('İzinler', {'fields': ('is_active', 'is_staff', 'is_superuser', 'user_permissions', 'groups')}),
+        ('İzinler', {'fields': ('is_active', 'is_staff', 'is_superuser', 'user_permissions', 'groups', 'force_password_change')}),
         ('Tarihler', {'fields': ('last_login',)}),
         ('Ekstra Profil Alanları', {'fields': ('gender', 'avatar', 'birth_date', 'country', 'bio',)}),
     )
@@ -21,10 +21,8 @@ class UsersAdmin(UserAdmin):
         }),
     )
 
-
-admin.site.register(IssueCategories)
-admin.site.register(Issues)
 admin.site.register(Videos)
 admin.site.register(VideoComments)
 admin.site.register(Courses)
 admin.site.register(Classroom)
+admin.site.register(Period)

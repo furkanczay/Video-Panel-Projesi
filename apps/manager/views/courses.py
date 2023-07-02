@@ -2,8 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from apps.core.models import Courses, CourseCategories, Classroom
 from apps.manager.forms.courses import CourseForm, CourseCategoryForm, ClassroomForm
 from django.contrib import messages
+from apps.manager.decorators import staff_login_required
 
-
+@staff_login_required
 def course_categories_page(request):
     course_categories = CourseCategories.objects.all()
     return render(request, 'manager/courses/categories/list.html', context={
@@ -11,6 +12,7 @@ def course_categories_page(request):
     })
 
 
+@staff_login_required
 def course_category_create(request):
     if request.method == 'POST':
         form = CourseCategoryForm(request.POST, request.FILES)
@@ -25,6 +27,7 @@ def course_category_create(request):
     })
 
 
+@staff_login_required
 def course_category_update(request, pk):
     course_category = get_object_or_404(CourseCategories, pk=pk)
     if request.method == 'POST':
@@ -41,6 +44,7 @@ def course_category_update(request, pk):
     })
 
 
+@staff_login_required
 def course_category_delete(request, pk):
     course_category = get_object_or_404(CourseCategories, pk=pk).delete()
     if course_category:
@@ -48,6 +52,7 @@ def course_category_delete(request, pk):
         return redirect('admin_course_categories_page')
 
 
+@staff_login_required
 def courses_page(request):
     courses = Courses.objects.all()
     return render(request, 'manager/courses/list.html', context={
@@ -55,6 +60,7 @@ def courses_page(request):
     })
 
 
+@staff_login_required
 def course_create(request):
     if request.method == 'POST':
         form = CourseForm(request.POST, request.FILES)
@@ -69,6 +75,7 @@ def course_create(request):
     })
 
 
+@staff_login_required
 def course_update(request, pk):
     course = get_object_or_404(Courses, pk=pk)
     if request.method == 'POST':
@@ -85,6 +92,7 @@ def course_update(request, pk):
     })
 
 
+@staff_login_required
 def course_delete(request, pk):
     course = get_object_or_404(Courses, pk=pk).delete()
     if course:
@@ -92,6 +100,7 @@ def course_delete(request, pk):
         return redirect('admin_courses_page')
 
 
+@staff_login_required
 def classrooms_page(request):
     classrooms = Classroom.objects.all()
     return render(request, 'manager/courses/classrooms/list.html', context={
@@ -99,6 +108,7 @@ def classrooms_page(request):
     })
 
 
+@staff_login_required
 def classrooms_create(request):
     if request.method == 'POST':
         form = ClassroomForm(request.POST)
@@ -113,6 +123,7 @@ def classrooms_create(request):
     })
 
 
+@staff_login_required
 def classroom_update(request, pk):
     classroom = get_object_or_404(Classroom, pk=pk)
     if request.method == 'POST':
@@ -129,6 +140,7 @@ def classroom_update(request, pk):
     })
 
 
+@staff_login_required
 def classroom_delete(request, pk):
     classroom = get_object_or_404(Classroom, pk=pk).delete()
     if classroom:

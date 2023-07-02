@@ -34,7 +34,6 @@ class Users(AbstractBaseUser, PermissionsMixin, AbstractDatesModel):
     student_number = models.CharField(_('Öğrenci Numarası'), max_length=20, unique=True, null=True, blank=True)
     username = models.CharField(_('Kullanıcı Adı'), max_length=100, unique=True, null=True, blank=True)
     email = models.EmailField(_('Eposta Adresi'), max_length=150, unique=True)
-    password = None
     first_name = models.CharField(_('Adı'), max_length=120)
     last_name = models.CharField(_('Soyadı'), max_length=120)
     gender = models.CharField(_('Cinsiyet'), max_length=6, choices=GENDERS, null=True, blank=True)
@@ -47,6 +46,7 @@ class Users(AbstractBaseUser, PermissionsMixin, AbstractDatesModel):
     objects = UsersManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+    force_password_change = models.BooleanField(_('Şifre Değiştirme Gerekliliği'), default=True)
 
     class Meta:
         db_table = 'users'
@@ -77,35 +77,6 @@ class Users(AbstractBaseUser, PermissionsMixin, AbstractDatesModel):
         return self.first_name
 
 
-# ISSUES MODELS
-class IssueCategories(AbstractDatesModel):
-    name = models.CharField(_('Kategori Adı'), max_length=120)
-
-    class Meta:
-        db_table = 'issue_categories'
-        verbose_name = _('Sorun Kategorisi')
-        verbose_name_plural = _('Sorun Kategorileri')
-
-    def __str__(self):
-        return self.name
-
-
-class Issues(AbstractDatesModel):
-    subject = models.CharField(_('Konu'), max_length=255)
-    category = models.ForeignKey(IssueCategories, on_delete=models.CASCADE, related_name='issues',
-                                 verbose_name=_('Kategori'))
-    content = models.TextField(_('İçerik'))
-    is_solved = models.BooleanField(_('Çözüldü mü?'), default=False)
-
-    class Meta:
-        db_table = 'issues'
-        verbose_name = _('Sorun')
-        verbose_name_plural = _('Sorunlar')
-
-    def __str__(self):
-        return self.subject
-
-
 class CourseCategories(AbstractDatesModel):
     name = models.CharField(_('İsim'), max_length=120)
 
@@ -132,9 +103,22 @@ class Courses(AbstractDatesModel):
         return self.name
 
 
+class Period(AbstractDatesModel):
+    name = models.CharField(_('İsim'), max_length=120)
+
+    class Meta:
+        db_table = 'periods'
+        verbose_name = _('Dönem')
+        verbose_name_plural = _('Dönemler')
+
+    def __str__(self):
+        return self.name
+
+
 class Classroom(AbstractDatesModel):
     name = models.CharField(_('İsim'), max_length=120)
     course = models.ForeignKey(Courses, on_delete=models.CASCADE, related_name='classrooms', verbose_name=_('Kurs'))
+    period = models.ForeignKey(Period, on_delete=models.SET_NULL, null=True, blank=True, verbose_name=_('Dönem'))
     instructor = models.ForeignKey(Users, on_delete=models.SET_NULL, related_name='instructor_classrooms', null=True,
                                    verbose_name=_('Eğitmen'), limit_choices_to={'groups__name': 'Eğitmen'})
 
@@ -144,7 +128,7 @@ class Classroom(AbstractDatesModel):
         verbose_name_plural = _('Sınıflar')
 
     def __str__(self):
-        return f'{self.course.name} {self.name}'
+        return f'{self.period} {self.course.name} {self.name}'
 
 
 class Videos(AbstractDatesModel):
@@ -155,7 +139,7 @@ class Videos(AbstractDatesModel):
     classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE, related_name='videos', default=1,
                                   verbose_name=_('Sınıf'))
     instructor = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='instructor_videos', default=1,
-                                   verbose_name=_('Eğitmen'))
+                                   verbose_name=_('Eğitmen'), limit_choices_to={'groups__name': 'Eğitmen'})
 
     class Meta:
         db_table = 'videos'
@@ -178,3 +162,17 @@ class VideoComments(AbstractDatesModel):
 
     def __str__(self):
         return self.author.get_full_name()
+
+
+class VideoFavorites(AbstractDatesModel):
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='video_favorites',
+                             verbose_name=_('Kullanıcı'))
+    video = models.ForeignKey(Videos, on_delete=models.CASCADE, related_name='favorites', verbose_name=_('Video'))
+
+    class Meta:
+        db_table = 'video_favorites'
+        verbose_name = _('Video Favorisi')
+        verbose_name_plural = _('Video Favorileri')
+
+    def __str__(self):
+        return self.user.get_full_name()

@@ -3,6 +3,15 @@ from django.contrib.auth.decorators import login_required
 from apps.core.decorators import group_required
 from apps.core.forms.instructor_forms import VideoUpload
 from django.contrib import messages
+from apps.core.models import Users
+
+
+@login_required()
+def instructor_list(request):
+    instructors = Users.objects.filter(groups__name='Eğitmen')
+    return render(request, 'user/instructors/list.html', {
+        'instructors': instructors
+    })
 
 
 @login_required()
@@ -31,3 +40,29 @@ def video_upload(request):
     return render(request, 'user/instructors/video_upload.html', {
         'form': form
     })
+
+
+@login_required()
+@group_required('Eğitmen')
+def video_edit(request, pk):
+    video = request.user.instructor_videos.get(pk=pk)
+    if request.method == 'POST':
+        form = VideoUpload(request.POST, request.FILES, user=request.user, instance=video)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Video başarıyla güncellendi')
+            return redirect('instructor_panel')
+    else:
+        form = VideoUpload(user=request.user, instance=video)
+    return render(request, 'user/instructors/video_edit.html', {
+        'form': form
+    })
+
+
+@login_required()
+@group_required('Eğitmen')
+def video_delete(request, pk):
+    video = request.user.instructor_videos.get(pk=pk)
+    video.delete()
+    messages.success(request, 'Video başarıyla silindi')
+    return redirect('instructor_panel')

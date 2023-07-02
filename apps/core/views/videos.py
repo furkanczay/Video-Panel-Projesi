@@ -3,30 +3,36 @@ from apps.core.models import Videos, VideoComments
 from django.contrib import messages
 from apps.core.forms.videos_forms import VideoFilterForm
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 @login_required()
 def videos_list(request):
+    videos = Videos.objects.all().order_by('-id')
+    paginator = Paginator(videos, 8)
+    page_number = request.GET.get('page')
     form = VideoFilterForm(request.GET)
     if form.is_valid():
+        title = form.cleaned_data.get('title')
         course = form.cleaned_data.get('course')
         instructor = form.cleaned_data.get('instructor')
         classroom = form.cleaned_data.get('classroom')
 
-        videos = Videos.objects.all().order_by('-id')
-
+        if title:
+            videos = videos.filter(title__icontains=title)
+            paginator = Paginator(videos, 8)
         if course:
             videos = videos.filter(classroom__course=course)
+            paginator = Paginator(videos, 8)
         if instructor:
             videos = videos.filter(instructor=instructor)
+            paginator = Paginator(videos, 8)
         if classroom:
             videos = videos.filter(classroom=classroom)
-
-    else:
-        videos = Videos.objects.all().order_by('-id')
+            paginator = Paginator(videos, 8)
     return render(request, 'user/videos/list.html', {
-        'videos': videos,
-        'form': form
+        'videos': paginator.get_page(page_number),
+        'form': form,
     })
 
 
@@ -35,10 +41,12 @@ def video_detail(request, pk):
     video = get_object_or_404(Videos, pk=pk)
     comments = video.comments.all().order_by('-id')
     all_videos = video.classroom.videos.all().order_by('-id')
+    is_video_favorite = request.user.video_favorites.filter(video=video).exists()
     return render(request, 'user/videos/video_detail.html', {
         'video': video,
         'comments': comments,
-        'all_videos': all_videos
+        'all_videos': all_videos,
+        'is_video_favorite': is_video_favorite,
     })
 
 

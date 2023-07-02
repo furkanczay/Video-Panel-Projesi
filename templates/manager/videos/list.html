@@ -1,0 +1,72 @@
+{% extends 'manager/alt_base.html' %}
+{% load static %}
+{% block title %}
+    Videolar
+{% endblock %}
+{% block page_header %}
+    Videolar
+{% endblock %}
+{% block button %}
+    <a href="{% url 'admin_videos_create' %}" class="btn btn-success float-end">Video Ekle</a>
+{% endblock %}
+{% block js_files %}
+    <script src="{% static 'manager/libs/list.js/dist/list.min.js' %}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const list = new List('table-default', {
+                sortClass: 'table-sort',
+                searchClass: 'search-input', // Arama alanının sınıfını belirtin
+                searchDelay: 300,
+                listClass: 'table-tbody',
+                valueNames: [ 'sort-video-title', 'sort-video-instructor', 'sort-video-created-on', 'sort-updated-on'],
+                  page: 10, // Sayfa başına öğe sayısı (örneğin 10 öğe)
+                  pagination: true, // Sayfalama özelliğini etkinleştirin
+
+
+          });
+          const searchInput = document.getElementById('search-input');
+           searchInput.addEventListener('input', function() {
+              list.search(this.value);
+           });
+        })
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="mb-3">
+       <input type="text" class="form-control" id="search-input" placeholder="Ara...">
+    </div>
+    <div class="card">
+              <div class="card-body">
+                <div id="table-default" class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th><button class="table-sort" data-sort="sort-student-number">Video Başlığı</button></th>
+                            <th><button class="table-sort" data-sort="sort-full-name">Eğitmen</button></th>
+                            <th><button class="table-sort" data-sort="sort-email">Oluşturulma Tarihi</button></th>
+                            <th><button class="table-sort" data-sort="sort-birth-date">Güncellenme Tarihi</button></th>
+                            <th class="w-1"></th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-tbody">
+                            {% for video in videos %}
+                                 <tr>
+                                        <td class="sort-student-number">{{ video.title }}</td>
+                                        <td class="sort-full-name">{{ video.instructor }}</td>
+                                        <td class="sort-email">{{ video.created_on }}</td>
+                                        <td class="sort-birth-date">{{ video.updated_on }}</td>
+                                        <td class="d-flex flex-row gap-2">
+                                            <a href="{% url 'admin_videos_update' pk=video.pk %}" class="btn btn-info">Düzenle</a>
+                                            <a href="{% url 'admin_videos_delete' pk=video.pk %}" onclick="return confirm('Silme işlemini onaylıyor musunuz?')" class="btn btn-danger">Sil</a>
+                                        </td>
+                                 </tr>
+                            {% endfor %}
+                        </tbody>
+                      </table>
+                        <div id="pagination-container">
+                           <ul class="pagination"></ul>
+                        </div>
+                </div>
+              </div>
+            </div>
+{% endblock %}

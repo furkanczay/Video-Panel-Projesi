@@ -1,5 +1,5 @@
 {% extends 'user/alt_base.html' %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
 {% block title %}
     Video Yükle
 {% endblock %}
@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col">
             <div class="page-description">
-                <h1>Video Yükle</h1>
+                <h1 class="text-xl">Video Yükle</h1>
             </div>
         </div>
     </div>
@@ -16,7 +16,7 @@
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button type="submit" class="btn btn-outline-primary">Videoyu Yükle</button>
+                <button type="submit" class="bg-green-400 hover:bg-green-800 py-2 px-4 rounded text-white">Videoyu Yükle</button>
             </form>
         </div>
     </div>

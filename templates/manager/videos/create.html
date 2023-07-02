@@ -1,0 +1,15 @@
+{% extends 'manager/alt_base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Video Ekle
+{% endblock %}
+{% block page_header %}
+    Video Ekle
+{% endblock %}
+{% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Videoyu Kaydet</button>
+    </form>
+{% endblock %}

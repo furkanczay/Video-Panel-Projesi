@@ -31,13 +31,14 @@ INSTALLED_APPS = [
     # THIRD-PARTY
     'crispy_forms',
     'crispy_bootstrap5',
+    'crispy_tailwind',
     'django_bunny_storage',
 ]
 
 # CRISPY FORMS OPTION
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 
-CRISPY_TEMPLATE_PACK = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 # AUTH USER MODEL OPTION
 AUTH_USER_MODEL = 'core.Users'
@@ -45,6 +46,7 @@ AUTH_USER_MODEL = 'core.Users'
 # AUTHENTICATION BACKENDS OPTION
 AUTHENTICATION_BACKENDS = [
     'config.backends.PasswordlessAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 # LOGIN/LOGOUT URLS OPTION

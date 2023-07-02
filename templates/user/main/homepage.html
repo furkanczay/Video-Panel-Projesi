@@ -5,91 +5,70 @@
     {% trans 'Anasayfa' %}
 {% endblock %}
 {% block content %}
-    <div class="app-content">
-        <div class="content-wrapper">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-4">
-                        <div class="card widget widget-stats">
-                            <div class="card-body">
-                                <div class="widget-stats-container d-flex">
-                                    <div class="widget-stats-icon widget-stats-icon-primary">
-                                        <i class="material-icons-outlined">person</i>
-                                    </div>
-                                    <div class="widget-stats-content flex-fill">
-                                        <span class="widget-stats-title">Öğrenci Sayısı</span>
-                                        <span class="widget-stats-amount">{% students_count %}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4">
-                        <div class="card widget widget-stats">
-                            <div class="card-body">
-                                <div class="widget-stats-container d-flex">
-                                    <div class="widget-stats-icon widget-stats-icon-warning">
-                                        <i class="material-icons-outlined">person</i>
-                                    </div>
-                                    <div class="widget-stats-content flex-fill">
-                                        <span class="widget-stats-title">Eğitmen Sayısı</span>
-                                        <span class="widget-stats-amount">{% instructors_count %}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4">
-                        <div class="card widget widget-stats">
-                            <div class="card-body">
-                                <div class="widget-stats-container d-flex">
-                                    <div class="widget-stats-icon widget-stats-icon-danger">
-                                        <i class="material-icons-outlined">play_circle</i>
-                                    </div>
-                                    <div class="widget-stats-content flex-fill">
-                                        <span class="widget-stats-title">Video Sayısı</span>
-                                        <span class="widget-stats-amount">{% videos_count %}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    {% for instructor in instructors %}
-                        <div class="col-xl-4">
-                            <div class="card widget widget-connection-request">
-                                <div class="card-header">
-                                    <h5 class="card-title">
-                                        {{ instructor.get_full_name }}
-                                    </h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="widget-connection-request-container d-flex">
-                                        <div class="widget-connection-request-avatar">
-                                            <div class="avatar avatar-xl m-r-xs">
-                                                <img src="{{ instructor.avatar.url }}" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="widget-connection-request-info flex-grow-1">
-                                            <span class="widget-connection-request-info-name">
-                                                Sınıf Sayısı: {{ instructor.instructor_classrooms.count }}
-                                            </span>
-                                            <span class="widget-connection-request-info-count">
-                                                {{ instructor.bio|truncatewords:25 }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="widget-connection-request-actions d-flex">
-                                        <a href="{% url 'videos_list' %}?instructor={{ instructor.pk }}" class="btn btn-primary btn-style-light flex-grow-1 m-r-xxs"><i class="ti ti-video"></i>Videolar</a>
-                                        <a href="#" class="btn btn-danger btn-style-light flex-grow-1 m-l-xxs"><i class="ti ti-link"></i>Faydalı Linkler</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
+<section>
+    <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
+        <a href="#" class="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700" role="alert">
+            <span class="text-xs bg-blue-600 rounded-full text-white px-4 py-1.5 mr-3">New</span> <span class="text-sm font-medium">Flowbite is out! See what's new</span>
+            <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+        </a>
+        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">We invest in the world’s potential</h1>
+        <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+        <div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+            <a href="https://acunmedyaakademi.com" target="_blank" class="inline-flex gap-2 justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-700 dark:text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
+                AcunMedya Akademi
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
+                </svg>
+            </a>
+            <a href="#" class="inline-flex gap-2 justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 21 16">
+                    <path d="M16.942 1.556a16.3 16.3 0 0 0-4.126-1.3 12.04 12.04 0 0 0-.529 1.1 15.175 15.175 0 0 0-4.573 0 11.585 11.585 0 0 0-.535-1.1 16.274 16.274 0 0 0-4.129 1.3A17.392 17.392 0 0 0 .182 13.218a15.785 15.785 0 0 0 4.963 2.521c.41-.564.773-1.16 1.084-1.785a10.63 10.63 0 0 1-1.706-.83c.143-.106.283-.217.418-.33a11.664 11.664 0 0 0 10.118 0c.137.113.277.224.418.33-.544.328-1.116.606-1.71.832a12.52 12.52 0 0 0 1.084 1.785 16.46 16.46 0 0 0 5.064-2.595 17.286 17.286 0 0 0-2.973-11.59ZM6.678 10.813a1.941 1.941 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.919 1.919 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Zm6.644 0a1.94 1.94 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.918 1.918 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Z"/>
+                </svg>
+                Discord
+            </a>
         </div>
     </div>
+</section>
+<section class="bg-white dark:bg-gray-800">
+  <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-6">
+      <div class="mx-auto mb-8 max-w-screen-sm lg:mb-16">
+          <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Eğitmenlerimiz</h2>
+          <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">Sisteme kayıtlı olan eğitmenlere buradan ulaşabilirsiniz</p>
+      </div>
+      <div class="grid gap-8 lg:gap-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {% for instructor in instructors %}
+                <div class="text-center text-gray-500 dark:text-gray-400">
+                      <img class="mx-auto mb-4 w-36 h-36 rounded-full" src="{{ instructor.avatar.url }}" alt="Bonnie Avatar">
+                      <h3 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                          <a href="{% url 'videos_list' %}?instructor=={{ instructor.pk }}">{{ instructor.get_full_name }}</a>
+                      </h3>
+                        <p>{{ instructor.instructor_classrooms.count }} sınıf</p>
+                        <p>{{ instructor.instructor_videos.count }} video</p>
+                      <ul class="flex justify-center mt-4 space-x-4">
+                          <li>
+                              <a href="#" class="text-[#39569c] hover:text-gray-900 dark:hover:text-white">
+                                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="#" class="text-[#00acee] hover:text-gray-900 dark:hover:text-white">
+                                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" /></svg>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="#" class="text-gray-900 hover:text-gray-900 dark:hover:text-white dark:text-gray-300">
+                                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="#" class="text-[#ea4c89] hover:text-gray-900 dark:hover:text-white">
+                                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c5.51 0 10-4.48 10-10S17.51 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z" clip-rule="evenodd" /></svg>
+                              </a>
+                          </li>
+                      </ul>
+                </div>
+          {% endfor %}
+      </div>
+  </div>
+</section>
 {% endblock %}
