@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     'apps.manager',
     # THIRD-PARTY
     'crispy_forms',
-    'crispy_bootstrap5',
     'crispy_tailwind',
     'django_bunny_storage',
 ]
