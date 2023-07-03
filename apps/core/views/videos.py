@@ -85,7 +85,7 @@ def video_comment_update(request, pk):
 @login_required()
 def video_comment_delete(request, pk):
     video_comment = get_object_or_404(VideoComments, pk=pk)
-    if video_comment.author == request.user:
+    if video_comment.author == request.user or video_comment.video.instructor == request.user:
         video_comment.delete()
         messages.success(request, 'Yorum başarıyla silindi')
         return redirect('video_detail', pk=video_comment.video.pk)
