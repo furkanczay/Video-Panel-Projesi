@@ -42,7 +42,7 @@ düzeltmek adına kullanmak istedim, ve ortaya bu proje çıktı! <br>
 ![Jquery]
 
 ### Kullanılan Temalar
-Önyüz: Neptune Theme <br>
+Önyüz: Flowbite UI <br>
 Admin: Tabler Theme
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
