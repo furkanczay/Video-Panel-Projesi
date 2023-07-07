@@ -25,7 +25,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # APPS
     'apps.core',
-    'apps.modules.ticket',
     # ADMIN
     'apps.manager',
     # THIRD-PARTY
