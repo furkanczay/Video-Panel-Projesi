@@ -144,6 +144,8 @@ def favorite_video(request, pk):
 @login_required()
 def favorite_videos(request):
     user = request.user
+    user_favorites = VideoFavorites.objects.filter(user=user)
     return render(request, 'user/users/favorite_videos.html', {
-        'user': user
+        'user': user,
+        'user_favorites': user_favorites
     })
