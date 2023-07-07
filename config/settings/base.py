@@ -12,27 +12,6 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # SECRET_KEY OPTION
 SECRET_KEY = env('SECRET_KEY')
 
-# ALLOWED HOSTS OPTION
-ALLOWED_HOSTS = []
-
-# INSTALLED APPS OPTION
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    # APPS
-    'apps.core',
-    # ADMIN
-    'apps.manager',
-    # THIRD-PARTY
-    'crispy_forms',
-    'crispy_tailwind',
-    'django_bunny_storage',
-]
-
 # CRISPY FORMS OPTION
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 
