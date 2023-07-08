@@ -20,9 +20,6 @@ def useful_links_add(request):
             link.save()
             messages.success(request, 'Link başarıyla eklendi')
             return redirect('useful_links')
-        else:
-            messages.error(request, 'Link eklenirken bir hata oluştu')
-            return redirect('useful_links')
     else:
         form = UsefulLinksForm()
     return render(request, 'modules/useful_links/add.html', {
@@ -31,8 +28,17 @@ def useful_links_add(request):
 
 def useful_links_edit(request, pk):
     link = UsefulLinks.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = UsefulLinksForm(request.POST, instance=link)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Link başarıyla güncellendi')
+            return redirect('useful_links')
+    else:
+        form = UsefulLinksForm(instance=link)
     return render(request, 'modules/useful_links/edit.html', {
-        'link': link
+        'link': link,
+        'form': form
     })
 
 def useful_links_delete(request, pk):
