@@ -11,6 +11,9 @@ DATABASES = {
     }
 }
 
+# ROOT URLCONFIGURATION OPTION
+ROOT_URLCONF = 'config.dev_urls'
+
 
 # ALLOWED HOSTS OPTION
 ALLOWED_HOSTS = []
@@ -25,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # APPS
     'apps.core',
+    'apps.modules.useful_links',
     # ADMIN
     'apps.manager',
     # THIRD-PARTY

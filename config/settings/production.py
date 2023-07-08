@@ -3,6 +3,9 @@ from .base import *
 # DEBUG MODE OPTION
 DEBUG = False
 
+# ROOT URLCONFIGURATION OPTION
+ROOT_URLCONF = 'config.urls'
+
 # ALLOWED HOSTS OPTION
 ALLOWED_HOSTS = []
 
