@@ -12,11 +12,9 @@
     AcunMedya Akademi öğrencileri için geliştirilmiş ders tekrar (video) paneli
     <br />
     <a href="#">
-        <strong>Dökümantasyon</strong>
+        <a href="#readme-installation">Kurulum Aşamaları</a>
     </a>
-        <span style="background: gray;color: whitesmoke; padding: 2px 5px; border-radius: 7px">Yakında</span>
-    <br />
-    <br />
+    ·
     <a href="https://github.com/furkannozay/AcademyProject/issues">Hata Raporla</a>
     ·
     <a href="https://github.com/furkannozay/AcademyProject/issues">Öneride Bulun</a>
@@ -45,6 +43,99 @@ düzeltmek adına kullanmak istedim, ve ortaya bu proje çıktı! <br>
 Önyüz: Flowbite UI <br>
 Admin: Tabler Theme
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## <a name="readme-installation"></a> Kurulum Aşamaları
+#### 1. Adım
+- Repoyu klonlayın
+
+    ```bash
+    git clone https://github.com/furkannozay/AcademyProject.git
+    ```
+
+#### 2. Adım
+- Virtual Environment oluşturun
+  ```bash
+  python -m venv venv
+  ```
+
+#### 3. Adım
+- Virtual Environment'ı aktif edin
+  - Windows için:
+    ```bash
+    venv\Scripts\activate.bat
+    ```
+  - Linux & Mac için:
+    ```bash
+    source venv/bin/activate
+    ```
+
+#### 4. Adım
+- Gerekli kütüphaneleri yükleyin
+  - Windows için:
+    ```bash
+    pip install -r requirements.txt
+    ```
+  - Linux & Mac için:
+    ```bash
+    pip3 install -r requirements.txt
+    ```
+
+#### 5. Adım
+- Veritabanını oluşturun
+  - Windows için:
+    ```bash
+    python manage.py migrate
+    ```
+  - Linux & Mac için:
+    ```bash
+    python3 manage.py migrate
+    ```
+
+#### 6. Adım
+- Superuser oluşturun
+  - Windows için:
+    ```bash
+    python manage.py createsuperuser
+    ```
+  - Linux & Mac için:
+    ```bash
+    python3 manage.py createsuperuser
+    ```
+
+#### 7. Adım
+
+- .env dosyasını oluşturun
+- .env-example dosyasındaki içerikleri içerisine kopyalayın
+- SECRET_KEY'i oluşturun:
+  ```bash
+  python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+  ```
+- .env dosyasını düzenleyin:
+  ```
+  - EMAIL_HOST= Mail sunucunuzun adresi
+  - EMAIL_HOST_USER= Mail sunucunuzun kullanıcı adı
+  - EMAIL_HOST_PASSWORD= Mail sunucunuzun şifresi
+  - WEBHOOK_URL= Discord Webhook URL'niz
+  - DEBUG= True/False
+  - BUNNY_USERNAME= BunnyCDN storage adı
+  - BUNNY_PASSWORD= BunnyCDN storage şifresi
+  - BUNNY_REGION= BunnyCDN storage bölgesi
+  ```
+
+
+#### 8. Adım
+- Sunucuyu çalıştırın
+  - Windows için:
+    ```bash
+    python manage.py runserver
+    ```
+  - Linux & Mac için:
+    ```bash
+    python3 manage.py runserver
+    ```
+    
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
