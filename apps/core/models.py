@@ -4,6 +4,7 @@ from django.utils.text import slugify
 from .abstracts import AbstractDatesModel
 from django_countries.fields import CountryField
 from .validators.videos import validate_file_extension
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 
@@ -148,7 +149,8 @@ class Classroom(AbstractDatesModel):
 class Videos(AbstractDatesModel):
     title = models.CharField(_('Başlık'), max_length=120)
     description = models.TextField(_('Açıklama'))
-    video_file = models.FileField(_('Video'), upload_to='videos/', validators=[validate_file_extension])
+    video_file = models.FileField(_('Video Dosyası'), upload_to='videos/', validators=[validate_file_extension], null=True, blank=True)
+    video_url = models.CharField(_('Video URL'), max_length=200, null=True, blank=True)
     link = models.URLField(_('Link'), null=True, blank=True)
     classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE, related_name='videos', default=1,
                                   verbose_name=_('Sınıf'))
@@ -162,6 +164,12 @@ class Videos(AbstractDatesModel):
 
     def __str__(self):
         return self.title
+
+    def clean(self):
+        if self.video_file and self.video_url:
+            raise ValidationError(_('Video dosyası ve urlden yalnızca birini kullanabilirsiniz'))
+        elif not self.video_file and not self.video_url:
+            raise ValidationError(_('Lütfen video yükleyin veya bir youtube urlsi girin'))
 
 
 class VideoComments(AbstractDatesModel):

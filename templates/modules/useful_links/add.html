@@ -1,0 +1,12 @@
+{% extends 'user/alt_base.html' %}
+{% load crispy_forms_filters %}
+{% block title %}
+    Faydalı Link Ekle
+{% endblock %}
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="bg-blue-700 hover:bg-blue-900 text-white py-2 px-4 rounded-lg">Ekle</button>
+    </form>
+{% endblock %}
