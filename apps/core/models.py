@@ -169,7 +169,7 @@ class Videos(AbstractDatesModel):
         if self.video_file and self.video_url:
             raise ValidationError(_('Video dosyası ve urlden yalnızca birini kullanabilirsiniz'))
         elif not self.video_file and not self.video_url:
-            raise ValidationError(_('Lütfen video yükleyin veya bir youtube urlsi girin'))
+            raise ValidationError(_('Lütfen bir video url \'si giriniz'))
 
 
 class VideoComments(AbstractDatesModel):

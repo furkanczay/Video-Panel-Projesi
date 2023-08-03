@@ -83,11 +83,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # BUNNY CDN STORAGE OPTION
 
-DEFAULT_FILE_STORAGE = 'apps.core.storage.BunnyCDNStorage'
-MEDIA_URL = env('MEDIA_URL')
-BUNNY_USERNAME = env('BUNNY_USERNAME')
-BUNNY_PASSWORD = env('BUNNY_PASSWORD')
-BUNNY_REGION = env('BUNNY_REGION')
+# DEFAULT_FILE_STORAGE = 'apps.core.storage.BunnyCDNStorage'
+# MEDIA_URL = env('MEDIA_URL')
+# BUNNY_USERNAME = env('BUNNY_USERNAME')
+# BUNNY_PASSWORD = env('BUNNY_PASSWORD')
+# BUNNY_REGION = env('BUNNY_REGION')
 
 # LANGUAGES OPTION
 LANGUAGE_CODE = 'tr-TR'
@@ -119,8 +119,8 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets/static_files/')
 
 # MEDIA FILES OPTION
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'assets/media/')
-# MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'assets/media/')
+MEDIA_URL = '/assets/media/'
 
 
 # SMTP EMAIL OPTION

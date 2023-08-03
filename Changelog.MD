@@ -1,3 +1,7 @@
+#### v1.0.1 | Production
+* BunnyCDN kaldırıldı, videolar youtube embed olacak şekilde ayarlandı
+* Media dosyaları da CDN üzerinden locale kaydedilecek şekilde değiştirildi
+
 #### v1.0.0-beta2 | DEV
 * Favori videolardan video detay sayfasına erişelemiyordu düzeltildi
 * Navbardaki fazla kodlar kaldırıldı

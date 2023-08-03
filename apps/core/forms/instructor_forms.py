@@ -8,7 +8,7 @@ class VideoUpload(forms.ModelForm):
 
     class Meta:
         model = Videos
-        fields = ['title', 'description', 'video_file', 'video_url', 'link', 'classroom']
+        fields = ['title', 'description', 'video_url', 'link', 'classroom']
         help_texts = {
             'link': 'Eğer ders içeriğinde kullanılan kodları paylaşmak istiyorsanız link ekleyebilirsiniz',
             'video_file': 'Yalnızca .mp4 videolar desteklenmektedir.'
