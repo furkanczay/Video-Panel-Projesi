@@ -46,8 +46,8 @@ def video_upload(request):
 
 @login_required()
 @group_required('Eğitmen')
-def video_edit(request, pk):
-    video = request.user.instructor_videos.get(pk=pk)
+def video_edit(request, slug):
+    video = request.user.instructor_videos.get(slug=slug)
     if request.method == 'POST':
         form = VideoUpload(request.POST, request.FILES, user=request.user, instance=video)
         if form.is_valid():

@@ -1,7 +1,7 @@
 from django.db.models.signals import post_migrate, post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import Group
-from apps.core.models import Videos, Users, UserSocialLinks
+from apps.core.models import Videos, Users
 from discord_webhook import DiscordWebhook
 from django.conf import settings
 
@@ -32,9 +32,3 @@ def send_discord_message(sender, instance, created, **kwargs):
             message += f'video yüklendi'
         webhook = DiscordWebhook(url=webhook_url, content=message)
         webhook.execute()
-
-
-@receiver(post_save, sender=Users)
-def create_social_links(sender, instance, created, **kwargs):
-    if created:
-        UserSocialLinks.objects.create(user=instance)

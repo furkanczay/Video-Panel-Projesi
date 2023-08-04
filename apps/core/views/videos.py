@@ -1,26 +1,32 @@
+import json
+
 from django.shortcuts import render, redirect, get_object_or_404
 from apps.core.models import Videos, VideoComments
 from django.contrib import messages
 from apps.core.forms.videos_forms import VideoFilterForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-
+from django.http import JsonResponse
+from django.core.serializers.json import DjangoJSONEncoder
 
 @login_required()
 def videos_list(request):
     videos = Videos.objects.all().order_by('-id')
     paginator = Paginator(videos, 8)
     page_number = request.GET.get('page')
+
+    title = request.GET.get('title')
+    print(title)
+    if title:
+        videos = videos.filter(title__contains=title)
+        paginator = Paginator(videos, 8)
     form = VideoFilterForm(request.GET)
     if form.is_valid():
-        title = form.cleaned_data.get('title')
+
         course = form.cleaned_data.get('course')
         instructor = form.cleaned_data.get('instructor')
         classroom = form.cleaned_data.get('classroom')
 
-        if title:
-            videos = videos.filter(title__icontains=title)
-            paginator = Paginator(videos, 8)
         if course:
             videos = videos.filter(classroom__course=course)
             paginator = Paginator(videos, 8)
@@ -30,6 +36,13 @@ def videos_list(request):
         if classroom:
             videos = videos.filter(classroom=classroom)
             paginator = Paginator(videos, 8)
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        videos = videos
+        video_list = [video.title for video in videos]
+        print(video_list)
+        json_videos = json.dumps(video_list)
+        json_videos = json.loads(json_videos)
+        return JsonResponse({'videos': json_videos})
     return render(request, 'user/videos/list.html', {
         'videos': paginator.get_page(page_number),
         'form': form,
@@ -37,8 +50,8 @@ def videos_list(request):
 
 
 @login_required()
-def video_detail(request, pk):
-    video = get_object_or_404(Videos, pk=pk)
+def video_detail(request, slug):
+    video = get_object_or_404(Videos, slug=slug)
     comments = video.comments.all().order_by('-id')
     all_videos = video.classroom.videos.all().order_by('-id')
     is_video_favorite = request.user.video_favorites.filter(video=video).exists()

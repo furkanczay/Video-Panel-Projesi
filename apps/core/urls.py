@@ -20,8 +20,7 @@ urlpatterns = [
         path('logout/', auth_views.LogoutView.as_view(), name='logout'),
         path('profile/', users.profile, name='profile'),
         path('profile/update/', users.profile_update, name='profile_update'),
-        path('social-links/', users.social_links, name='social_links'),
-        path('favorite_video/<int:pk>/', users.favorite_video, name='favorite_video'),
+        path('favorite_video/<slug:slug>/', users.favorite_video, name='favorite_video'),
         path('favorite-videos/', users.favorite_videos, name='favorite_videos'),
         # USER LIST URLS
         path('users/', include([
@@ -31,13 +30,13 @@ urlpatterns = [
         path('instructor-panel/', include([
             path('', instructors.instructor_panel, name='instructor_panel'),
             path('video-upload/', instructors.video_upload, name='video_upload'),
-            path('video-edit/<int:pk>/', instructors.video_edit, name='video_edit'),
+            path('video-edit/<slug:slug>/', instructors.video_edit, name='video_edit'),
             path('video-delete/<int:pk>/', instructors.video_delete, name='video_delete'),
         ])),
         # VIDEOS URLS
         path('videos/', include([
             path('', videos.videos_list, name='videos_list'),
-            path('<int:pk>/', videos.video_detail, name='video_detail'),
+            path('<slug:slug>/', videos.video_detail, name='video_detail'),
             path('comments/create/', videos.video_comment_create, name='video_comment_create'),
             path('comments/delete/<int:pk>/', videos.video_comment_delete, name='video_comment_delete'),
             path('comments/update/<int:pk>/', videos.video_comment_update, name='video_comment_update'),

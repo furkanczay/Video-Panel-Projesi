@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from config.backends import PasswordlessAuthBackend
 from apps.core.utils import send_otp
-from apps.core.models import Users, UserSocialLinks
+from apps.core.models import Users
 from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth import login
@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from apps.core.decorators import anonymous_required
 from django.contrib import messages
 from datetime import datetime
-from apps.core.forms.users import UserUpdateForm, SocialLinksForm
+from apps.core.forms.users import UserUpdateForm
 from apps.core.models import Videos, VideoFavorites
 import pyotp
 
@@ -109,28 +109,10 @@ def profile_update(request):
         'form': form
     })
 
-@login_required()
-def social_links(request):
-    user = request.user
-    if request.method == 'POST':
-        form = SocialLinksForm(request.POST)
-        if form.is_valid():
-            social_link = form.save(commit=False)
-            social_link.user = user
-            social_link.save()
-            messages.success(request, 'Sosyal link eklendi')
-            return redirect('social_links')
-    else:
-        form = SocialLinksForm()
-    return render(request, 'user/users/social_links.html', {
-        'user': user,
-        'form': form
-    })
-
 
 @login_required()
-def favorite_video(request, pk):
-    video = get_object_or_404(Videos, pk=pk)
+def favorite_video(request, slug):
+    video = get_object_or_404(Videos, slug=slug)
     user = request.user
     if VideoFavorites.objects.filter(video=video, user=user).exists():
         VideoFavorites.objects.filter(video=video, user=user).delete()
@@ -138,13 +120,13 @@ def favorite_video(request, pk):
     else:
         VideoFavorites.objects.create(video=video, user=user)
         messages.success(request, 'Video favorilere eklendi')
-    return redirect('video_detail', pk=pk)
+    return redirect('video_detail', slug=slug)
 
 
 @login_required()
 def favorite_videos(request):
     user = request.user
-    user_favorites = VideoFavorites.objects.filter(user=user)
+    user_favorites = VideoFavorites.objects.filter(user=user).order_by('-id')
     return render(request, 'user/users/favorite_videos.html', {
         'user': user,
         'user_favorites': user_favorites

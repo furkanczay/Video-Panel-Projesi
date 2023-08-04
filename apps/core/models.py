@@ -6,6 +6,7 @@ from django_countries.fields import CountryField
 from .validators.videos import validate_file_extension
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from autoslug import AutoSlugField
 
 
 # AUTHENTICATE MODELS
@@ -40,8 +41,8 @@ class Users(AbstractBaseUser, PermissionsMixin, AbstractDatesModel):
     gender = models.CharField(_('Cinsiyet'), max_length=6, choices=GENDERS, null=True, blank=True)
     avatar = models.ImageField(_('Profil Resmi'), upload_to='avatars/', null=True, blank=True)
     bio = models.TextField(_('Biyografi'), null=True, blank=True)
-    birth_date = models.DateField(_('Doğum Tarihi'), null=True)
-    country = CountryField(_('Ülke'), null=True)
+    birth_date = models.DateField(_('Doğum Tarihi'), null=True, blank=True)
+    country = CountryField(_('Ülke'), null=True, blank=True)
     is_active = models.BooleanField(_('Aktif mi?'), default=True)
     is_staff = models.BooleanField(_('Personel mi?'), default=False)
     objects = UsersManager()
@@ -76,20 +77,6 @@ class Users(AbstractBaseUser, PermissionsMixin, AbstractDatesModel):
     def get_short_name(self):
         """Return the short name for the user."""
         return self.first_name
-
-
-class UserSocialLinks(AbstractDatesModel):
-    title = models.CharField(_('Başlık'), max_length=120, null=True, blank=True)
-    link = models.URLField(_('Link'), null=True, blank=True)
-    user = models.ForeignKey(Users, related_name='social_links', on_delete=models.CASCADE, verbose_name=_('Üye'))
-
-    class Meta:
-        db_table = 'social_links'
-        verbose_name = _('Sosyal Link')
-        verbose_name_plural = _('Sosyal Linkler')
-
-    def __str__(self):
-        return self.title
 
 
 class CourseCategories(AbstractDatesModel):
@@ -148,6 +135,7 @@ class Classroom(AbstractDatesModel):
 
 class Videos(AbstractDatesModel):
     title = models.CharField(_('Başlık'), max_length=120)
+    slug = AutoSlugField(null=True, blank=True, populate_from='title', unique=True)
     description = models.TextField(_('Açıklama'))
     video_file = models.FileField(_('Video Dosyası'), upload_to='videos/', validators=[validate_file_extension], null=True, blank=True)
     video_url = models.CharField(_('Video URL'), max_length=200, null=True, blank=True)
