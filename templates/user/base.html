@@ -17,9 +17,8 @@
     {% block css_files %}{% endblock %}
 
 </head>
-<body class="dark:bg-gray-800">
+<body class="bg-gray-100 dark:bg-gray-800">
     {% block header %}{% endblock %}
-    {% block navbar %}{% endblock %}
     {% if request.user.force_password_change %}
 
         <div id="informational-banner" tabindex="-1" class="sticky-top top-0 left-0 z-50 flex flex-col justify-between w-full p-4 border-b border-gray-200 md:flex-row bg-gray-50 dark:bg-gray-700 dark:border-gray-600">

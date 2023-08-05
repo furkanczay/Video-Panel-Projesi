@@ -3,18 +3,10 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 {% block content %}
-<section class="bg-gray-50 dark:bg-gray-800">
-  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-      <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-          <img class="w-8 h-8 mr-2" src="{% static 'base/img/acunmedya_akademi_logo.png' %}" alt="logo">
-          Acunmedya Akademi
-      </a>
-      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                  {% trans 'Hesabınıza giriş yapın' %}
-              </h1>
-              {% if form.errors %}
+    <section class="bg-white items-center mx-auto dark:bg-gray-800">
+        <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+            <img class="col-span-2" src="{% static 'base/img/acunmedya_akademi_logo.png' %}" width="250" height="250" alt="Acunmedya Akademi Logo">
+            {% if form.errors %}
                     <div class="bg-red-800 py-2 px-4 text-white rounded-lg">
                             {{ form.non_field_errors }}
                           {% if form.username.errors %}
@@ -28,7 +20,7 @@
                   {% csrf_token %}
                   <div>
                       <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{% trans 'Eposta Adresi' %}</label>
-                      <input type="email" name="username" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
+                      <input type="email" name="username" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@mail.com" required="">
                   </div>
                   <div>
                       <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{% trans 'Şifre' %}</label>
@@ -46,13 +38,20 @@
                       <a href="{% url 'password_reset' %}" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">{% trans 'Şifrenizi mi unuttunuz?' %}</a>
                   </div>
                   <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                      {% trans 'Giriş Yap' %}</button>
-                  <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                      Sisteme ilk kez giriş yapıyorsanız lütfen <a href="{% url 'first_login' %}" class="font-medium text-blue-600 hover:underline dark:text-primary-500">buraya tıklayınız</a>
-                  </p>
+                      {% trans 'Giriş Yap' %}
+                  </button>
               </form>
-          </div>
-      </div>
-  </div>
-</section>
+        <div class="mt-4 md:mt-0">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Acunmedya Akademi</h2>
+                <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">Sisteme ilk kez giriş yapacaksanız ve belirli bir şifreniz yoksa lütfen aşağıdaki link üzerinden giriş yapınız.</p>
+                <a href="{% url 'first_login' %}" class="inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900">
+                    İlk Kez Giriş
+                    <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+
 {% endblock %}
