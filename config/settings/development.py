@@ -14,7 +14,6 @@ DATABASES = {
 # ROOT URLCONFIGURATION OPTION
 ROOT_URLCONF = 'config.dev_urls'
 
-
 # ALLOWED HOSTS OPTION
 ALLOWED_HOSTS = []
 
@@ -35,4 +34,5 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_tailwind',
     'django_bunny_storage',
+    'ckeditor',
 ]

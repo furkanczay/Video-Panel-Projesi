@@ -17,7 +17,7 @@
             {% endif %}
             <div class="p-5">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ video.title }}</h5>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ video.description }}</p>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ video.description|safe }}</p>
                 {% if video.link %}
                     <a href="{{ video.link }}" target="_blank" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Kaynak Link

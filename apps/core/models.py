@@ -7,6 +7,7 @@ from .validators.videos import validate_file_extension
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from autoslug import AutoSlugField
+from ckeditor.fields import RichTextField
 
 
 # AUTHENTICATE MODELS
@@ -136,7 +137,7 @@ class Classroom(AbstractDatesModel):
 class Videos(AbstractDatesModel):
     title = models.CharField(_('Başlık'), max_length=120)
     slug = AutoSlugField(null=True, blank=True, populate_from='title', unique=True)
-    description = models.TextField(_('Açıklama'))
+    description = RichTextField(_('Açıklama'), null=True)
     video_file = models.FileField(_('Video Dosyası'), upload_to='videos/', validators=[validate_file_extension], null=True, blank=True)
     video_url = models.CharField(_('Video URL'), max_length=200, null=True, blank=True)
     link = models.URLField(_('Link'), null=True, blank=True)

@@ -4,20 +4,12 @@
     Video Yükle
 {% endblock %}
 {% block content %}
-    <div class="row">
-        <div class="col">
-            <div class="page-description">
-                <h1 class="text-xl">Video Yükle</h1>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <button type="submit" class="bg-green-400 hover:bg-green-800 py-2 px-4 rounded text-white">Videoyu Yükle</button>
-            </form>
-        </div>
-    </div>
+<div class="container max-w-screen-xl px-12 mx-auto">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form|crispy }}
+        <button type="submit" class="bg-green-400 hover:bg-green-800 py-2 px-4 rounded text-white">Videoyu Yükle</button>
+    </form>
+</div>
 {% endblock %}
