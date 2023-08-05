@@ -2,6 +2,7 @@ from django import template
 from apps.core.models import Users, Videos
 from django.template.defaultfilters import stringfilter
 import re
+from urllib.parse import urlparse
 
 register = template.Library()
 
@@ -29,3 +30,12 @@ def usermention(value):
 def videos_count():
     videos = Videos.objects.all()
     return videos.count()
+
+
+@register.filter(name='video_embed')
+@stringfilter
+def video_embed(value):
+    url_data = urlparse(value)
+    query = urlparse(url_data.query)
+    url = query.path.replace('v=', '')
+    return 'https://youtube.com/embed/' + url
